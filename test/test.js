@@ -1,8 +1,21 @@
 import Gridinfo from 'facade/gridinfo';
 
+// definición raster layers capas bases
+
+const ortofoto2016_color = new M.layer.WMS({
+  url: 'http://www.ideandalucia.es/wms/ortofoto2016?',
+  name: 'ortofotografia_2016_rgb',
+  legend: 'Ortofotografía Color 0,5 metros/pixel (Año 2016)',
+  transparent: false,
+  tiled: true
+}, {
+  styles: 'default'
+})
+
 // definición Mapea
 const map = M.map({
   container: 'mapjs',
+  layers: [ortofoto2016_color],
   maxExtent: [100401, 3987100, 621273, 4288700],
   projection: 'EPSG:25830*m',
 });
@@ -253,7 +266,7 @@ const configTipologiasConstrucctivas = {
 const configGridInfo = {
   wfsUrl:'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
   layer: 'gridcattp_250',
-  zoom: 9
+  zoom: 6
 }
 
 

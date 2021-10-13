@@ -5,7 +5,6 @@
 
 import GridinfoImplControl from 'impl/gridinfocontrol';
 import template from 'templates/gridinfo';
-
 export default class GridinfoControl extends M.Control {
   /**
    * @classdesc
@@ -27,23 +26,46 @@ export default class GridinfoControl extends M.Control {
     this.config = config
     this.wfsUrl = this.config.wfsUrl;
     this.layer = this.config.layer;
-    this.startInfoZoom = this.config.zoom;
-    this.map_=this.map
+    this.url = null;
+    this.map_ = this.map
+    this.zoom = this.config.zoom;
+    this.oldZoom = null;
+    this.newZoom = null;
     this.bbox = null;
-    // this.x_min = this.bbox.x.min;
-    // this.y_min = this.bbox.y.min;
-    // this.x_max = this.bbox.x.max;
-    // this.y_max = this.bbox.y.max;
-    this.x_min = null;
-    this.y_min = null;
-    this.x_max = null;
-    this.y_max = null;
+    this.oldBbox = null;
+    this.newBbox = null;
     this.geoJSON = null;
-    console.log(config)
-    console.log(this.wfsUrl)
-    console.log(this.layer)
-    console.log(this.startInfoZoom)
-
+    this.start = null;
+    this.totalFeatures = null;
+    this.batchsize = 100;
+    this.limit = 1000;
+    this.polygonStyle = new M.style.Polygon({
+      fill: {
+        color: 'pink',
+        opacity: 0,
+      },
+      stroke: {
+        color: '#cdcdcd',
+        width: 1.5
+      }
+   });
+    this.vectorLayer = new M.layer.GeoJSON({
+      name: 'Prueba',
+      source: {
+        crs: {
+          properties: {
+            name: "EPSG:25830"
+          },
+          type: "name"
+        },
+        features: [],
+        type: "FeatureCollection"
+      }, 
+      extract: false,
+    }, {
+    }, {
+      renderMode: 'image'
+    });
   }
 
   /**
@@ -54,7 +76,7 @@ export default class GridinfoControl extends M.Control {
    * @param {M.Map} map to add the control
    * @api stable
    */
-  createView(map) {    
+  createView(map) {
     return new Promise((success, fail) => {
       const html = M.template.compileSync(template);
       // Añadir código dependiente del DOM
@@ -111,84 +133,55 @@ export default class GridinfoControl extends M.Control {
 
   // Add your own functions
 
-  addEvents(html){
-    let actualZoom
-    let newZoom 
-    let targetId = this.getImpl().getTarget(this.map_)
-    let panzoom = document.getElementsByClassName('m-panzoom')[0]
-    let myMap = document.getElementById(targetId)
+  addEvents(html) {
+    this.map_.addLayers(this.vectorLayer);
+    let zoom;
+    this.map_.on(M.evt.COMPLETED, () => {
+      this.map_.getMapImpl().on('moveend', () => {
+        this.vectorLayer.clear();
+        this.start = 0;
+        this.totalFeatures = 0;
+        zoom = this.map_.getZoom();
+        if (zoom >= this.zoom) {
+          this.bbox = this.map_.getBbox();
+          console.log('hago la peticion')
 
-    panzoom.addEventListener('click',(event)=>{
-      actualZoom = this.map_.getZoom()
-      let target = event.target
-      if (target.classList.contains('ol-zoom-in') ){
-        newZoom = actualZoom+1
-      }else if (target.classList.contains('ol-zoom-out') ){
-        newZoom =actualZoom-1
-      }
-      if (this.checkZoom(newZoom)){
-        this.bbox = this.map_.getBbox();
-        this.loadLayer();
-      }
-    })
-
-    myMap.addEventListener('wheel',(event)=>{
-      actualZoom = this.map_.getZoom()
-      if (event.deltaY < 0){
-        newZoom =actualZoom+1
-      }else if (event.deltaY > 0){
-        newZoom =actualZoom-1
-      }
-      if (this.checkZoom(newZoom)){
-        this.bbox = this.map_.getBbox();
-        this.loadLayer();
-      }
-    })   
-    
-    myMap.addEventListener('click',(event)=>{
-      this.checkBBox(this.map_.getBbox())
-      if ((this.checkBBox(this.map_.getBbox())) && (this.checkZoom(this.map_.getZoom()))){
-        this.bbox = this.map_.getBbox();
-        this.loadLayer();
-      }
-    })    
+          this.url = this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&BBOX=' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max + '&outputFormat=application/json';
+          this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
+        }
+      });
+    });
   }
+  incrementalLoad(vectorLayer, url, start, batchsize, totalFeatures, limit) {
+    // Si es la primera ejecucion o si aun no las hemos cargado todas
+    if ((this.totalFeatures == 0) || (this.vectorLayer.getFeatures().length < this.totalFeatures)) {
+      // Para no pasarnos si hay limite definido
+      if (this.start + this.batchsize > this.limit) {
+        this.batchsize = this.limit - this.start;
+      }
+      M.remote.get(url + "&STARTINDEX=" + this.start + "&COUNT=" + this.batchsize).then((res) => {
+        let wfs = JSON.parse(res.text);
+        this.totalFeatures = wfs.totalFeatures;
+        // Si hay limite, tiene preferencia
+        this.totalFeatures = (this.limit === undefined) ? wfs.totalFeatures : Math.min(this.limit, this.totalFeatures);
+        let wfsFeatures = wfs.features;
+        let features = [];
 
-  checkBBox(bbox){
-    let change = false;
-    if ((this.x_min != bbox.x.min) || (this.y_min != bbox.y.min) || (this.x_max != bbox.x.max) || (this.y_max != bbox.y.max)) {
-      change = true;
-    }  
-    return change;
-  }
+        wfsFeatures.forEach((f) => {
+          let newFeat = new M.Feature(f.id, f);
+          newFeat.setStyle(this.polygonStyle);
+          features.push(newFeat);
 
-  checkZoom(newZoom){
-    let valid = false;
-    if(newZoom >= this.startInfoZoom){
-      this.bbox =this.map_.getBbox();
-      valid = true;
-    }
-    return valid;
-  }
-
-  loadLayer(){
-    if(this.geoJSON){
-      this.map_.removeLayers(this.geoJSON)
-    } else {
-      this.x_min = this.bbox.x.min;
-      this.y_min = this.bbox.y.min;
-      this.x_max = this.bbox.x.max;
-      this.y_max = this.bbox.y.max;
-
-      console.log(this.x_min)
-      console.log(this.y_min)
-      console.log(this.x_max)
-      console.log(this.y_max)
-      this.geoJSON  = new M.layer.GeoJSON({
-        name: 'grid_250m', 
-        url: this.wfsUrl+'service=WFS&version=1.0.0&request=GetFeature&typeName='+this.layer+'&BBOX='+this.x_min+','+this.y_min+','+this.x_max+','+this.y_max+'&outputFormat=application/json'
         });
-      this.map_.addLayers(this.geoJSON);
+
+        this.start = this.start + this.batchsize;
+
+        this.vectorLayer.addFeatures(features);
+        // Si aun faltan features por cargar, iteramos
+        if (this.vectorLayer.getFeatures().length < this.totalFeatures) {
+          this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
+        }
+      });
     }
   }
 }
