@@ -57,7 +57,8 @@ export default class Gridinfo extends M.Plugin {
     this.panel_ = new M.ui.Panel('panelGridinfo', {
       collapsible: true,
       position: M.ui.position.TL,
-      collapsedButtonClass: 'g-cartografia-flecha-izquierda',
+      className: 'm-gridinfo',
+      collapsedButtonClass: 'g-cartografia-info',
       tooltip: 'Consultar Información'
     });
     this.panel_.addControls(this.controls_);
