@@ -29,28 +29,35 @@ export default class GridinfoControl extends M.Control {
     this.url = null;
     this.map_ = this.map
     this.zoom = this.config.zoom;
-    this.oldZoom = null;
-    this.newZoom = null;
-    this.bbox = null;
-    this.oldBbox = null;
-    this.newBbox = null;
     this.geoJSON = null;
+    this.popup = null;
     this.start = null;
     this.totalFeatures = null;
     this.batchsize = 100;
     this.limit = 1000;
     this.polygonStyle = new M.style.Polygon({
       fill: {
-        color: 'pink',
-        opacity: 0,
+        color: '#ffffff',
+        opacity: 0.1,
       },
       stroke: {
         color: '#cdcdcd',
         width: 1.5
       }
-   });
+    });
+
+    this.polygonSelectedStyle = new M.style.Polygon({
+      fill: {
+        color: '#ffffff',
+        opacity: 0.1,
+      },
+      stroke: {
+        color: '#FFFF00',
+        width: 3
+      }
+    });
     this.vectorLayer = new M.layer.GeoJSON({
-      name: 'Prueba',
+      name: 'vectorLayer',
       source: {
         crs: {
           properties: {
@@ -60,13 +67,15 @@ export default class GridinfoControl extends M.Control {
         },
         features: [],
         type: "FeatureCollection"
-      }, 
+      },
       extract: false,
     }, {
     }, {
       renderMode: 'image'
     });
+
   }
+
 
   /**
    * This function creates the view
@@ -146,7 +155,8 @@ export default class GridinfoControl extends M.Control {
           this.bbox = this.map_.getBbox();
           console.log('hago la peticion')
 
-          this.url = this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&BBOX=' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max + '&outputFormat=application/json';
+          //this.url = this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&BBOX=' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max + '&CQL_FILTER=ctotal%3E0&outputFormat=application/json';
+          this.url = this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=BBOX(geom,' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max+')&outputFormat=application/json';
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
       });
@@ -168,10 +178,15 @@ export default class GridinfoControl extends M.Control {
         let features = [];
 
         wfsFeatures.forEach((f) => {
+          // Se combierte de multipolygon a polygon
           let newFeat = new M.Feature(f.id, f);
+          let geom = newFeat.getGeometry();
+          geom.type = "Polygon";
+          let coord = geom.coordinates[0];
+          geom.coordinates = coord;
+          newFeat.setGeometry(geom);
           newFeat.setStyle(this.polygonStyle);
           features.push(newFeat);
-
         });
 
         this.start = this.start + this.batchsize;
@@ -181,7 +196,51 @@ export default class GridinfoControl extends M.Control {
         if (this.vectorLayer.getFeatures().length < this.totalFeatures) {
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
+
+        this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
+          this.selectedDataShow(feature[0]);
+        });
+
+        this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
+          feature[0].setStyle(this.polygonStyle);
+          this.selectedDataHide();
+        });
       });
     }
+  }
+
+  setInfoPopUp(feature) {
+    let gridCenter = this.getPolygonCenter(feature.getGeometry())
+    let coordenada_X = gridCenter[0];
+    let coordenada_Y = gridCenter[1];
+    let myContent =
+      "<table><tr><td class='info-popup-value'>" + feature.getAttribute('ctotal') + "</td></tr></table>";
+    let featureTabOpts = {
+      icon: "g-cartografia-pin",
+      title: "Información",
+      content: myContent,
+    };
+    this.popup = new M.Popup({ panMapIfOutOfView: false });
+    this.popup.addTab(featureTabOpts);
+    this.map_.addPopup(this.popup, [coordenada_X, coordenada_Y]);
+  }
+
+  getPolygonCenter(geometry) {
+    let minPointX = geometry.coordinates[0][0][0]
+    let minPointY = geometry.coordinates[0][0][1]
+    let maxPointX = geometry.coordinates[0][2][0]
+    let maxPointY = geometry.coordinates[0][2][1]
+    let coor_x = ((maxPointX - minPointX) / 2) + minPointX
+    let coor_y = ((maxPointY - minPointY) / 2) + minPointY
+    return [coor_x, coor_y]
+  }
+
+  selectedDataShow(feature) {
+    feature.setStyle(this.polygonSelectedStyle);
+    this.setInfoPopUp(feature)
+  }
+
+  selectedDataHide() {
+    this.map_.removePopup(this.popup)
   }
 }
