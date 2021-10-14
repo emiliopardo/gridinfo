@@ -5,7 +5,22 @@
   text-align: left;
 }
 
-.geostats-popup-value {
+.info-popup-value {
   font-weight: normal;
   text-align: right;
 }
+
+.m-popup>div.m-content>div.m-header {
+  /* cursor: pointer; */
+  display: none !important;
+}
+
+.m-areas > div.m-area > div.m-panel.m-gridinfo.collapsed > button.m-panel-btn {
+  color:green !important;
+}
+
+.m-areas > div.m-area > div.m-panel.m-gridinfo.opened > button.m-panel-btn {
+  color: #FFFFFF !important;
+  background-color: green !important;
+}
+
