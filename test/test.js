@@ -264,9 +264,24 @@ const configTipologiasConstrucctivas = {
 //config plugin gridinfo
 
 const configGridInfo = {
-  wfsUrl:'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
+  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
   layer: 'gridcattp_250',
-  zoom: 6
+  zoom: 6,
+  info: [
+    {
+      style: 'st_',
+      fields: [
+        {
+          field: 'pp',
+          title: 'descripio',
+        },
+        {
+          field: 'pp',
+          title: 'descripio',
+        }
+      ]
+    }
+  ]
 }
 
 
@@ -276,6 +291,10 @@ map.addPlugin(inputSelectAddLayer);
 const mp = new Gridinfo(configGridInfo);
 map.addPlugin(mp);
 
-mp.on(M.evt.ADDED_TO_MAP,()=>{
+mp.on(M.evt.ADDED_TO_MAP, () => {
   console.log('se carga plugin GridInfo')
 })
+
+map.addControls(new M.control.GetFeatureInfo(
+  'html',
+  { buffer: 50 }));
