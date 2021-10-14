@@ -153,10 +153,7 @@ export default class GridinfoControl extends M.Control {
         zoom = this.map_.getZoom();
         if (zoom >= this.zoom) {
           this.bbox = this.map_.getBbox();
-          console.log('hago la peticion')
-
-          //this.url = this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&BBOX=' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max + '&CQL_FILTER=ctotal%3E0&outputFormat=application/json';
-          this.url = this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=BBOX(geom,' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max+')&outputFormat=application/json';
+          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=ctotal>20000 AND BBOX(geom,' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max+')&outputFormat=application/json');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
       });
