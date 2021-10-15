@@ -29,6 +29,7 @@ export default class GridinfoControl extends M.Control {
     this.url = null;
     this.map_ = this.map
     this.zoom = this.config.zoom;
+    this.info = this.config.info;
     this.geoJSON = null;
     this.popup = null;
     this.start = null;
@@ -68,12 +69,11 @@ export default class GridinfoControl extends M.Control {
         features: [],
         type: "FeatureCollection"
       },
-      extract: false,
+      //extract: false,
     }, {
     }, {
       renderMode: 'image'
     });
-
   }
 
 
@@ -153,12 +153,62 @@ export default class GridinfoControl extends M.Control {
         zoom = this.map_.getZoom();
         if (zoom >= this.zoom) {
           this.bbox = this.map_.getBbox();
-          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=ctotal>20000 AND BBOX(geom,' + this.bbox.x.min + ',' + this.bbox.y.min + ',' + this.bbox.x.max + ',' + this.bbox.y.max+')&outputFormat=application/json');
+          this.bboxFilter = this.setCQLBboxFiler(this.bbox)
+          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER='+this.fieldsFilter+' AND '+this.bboxFilter+'&propertyName='+this.propertyNames+'&outputFormat=application/json');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
       });
     });
+
+    this.map_.on(M.evt.ADDED_WMS, () => {
+      this.selectedGrid = this.getLoadedGridWMS();
+      if (this.selectedGrid) {
+        this.gridInfoFields= this.setGridFieldInfo(this.selectedGrid)
+        this.fieldsFilter = this.setCQLFieldsFilter(this.gridInfoFields);
+        this.propertyNames = this.setPropertyNames(this.gridInfoFields);
+      } else {
+        console.log('no hay')
+      }
+    })
   }
+
+  getLoadedGridWMS() {
+    let find = false;
+    let layers = this.map_.getLayers();
+    let selectedGrid = null
+    do {
+      for (let index = 0; index < layers.length; index++) {
+        const layer = layers[index];
+        if (layer instanceof M.layer.WMS) {
+          selectedGrid = (layer.options.styles)
+
+        }
+        if (index == layers.length - 1) {
+          find = true;
+        }
+      }
+    } while (!find);
+    return selectedGrid
+  }
+
+
+  setGridFieldInfo(selectedGrid) {
+    let find = false
+    let gridInfoFields = null
+    do {
+      for (let index = 0; index < this.info.length; index++) {
+        const element = this.info[index];
+        if (element.style == selectedGrid){
+          gridInfoFields =  element.fields
+        }
+        if (index == this.info.length - 1) {
+          find = true;
+        }   
+      }   
+    } while (!find);
+    return gridInfoFields
+  }
+
   incrementalLoad(vectorLayer, url, start, batchsize, totalFeatures, limit) {
     // Si es la primera ejecucion o si aun no las hemos cargado todas
     if ((this.totalFeatures == 0) || (this.vectorLayer.getFeatures().length < this.totalFeatures)) {
@@ -239,5 +289,36 @@ export default class GridinfoControl extends M.Control {
 
   selectedDataHide() {
     this.map_.removePopup(this.popup)
+  }
+
+  setCQLBboxFiler(bbox){
+    return 'BBOX(geom,' + bbox.x.min + ',' + bbox.y.min + ',' + bbox.x.max + ',' + bbox.y.max + ')';
+  }
+
+  setCQLFieldsFilter(gridInfoFields){
+    let filter = null;
+    for (let index = 0; index < gridInfoFields.length; index++) {
+      const field = gridInfoFields[index]; 
+      if  (index==0){
+        filter =field.field+'>'+field.minValue; 
+      }else{
+        filter+=' AND '+field.field+'>'+field.minValue
+      }
+    }  
+      return filter
+  }
+
+  setPropertyNames(gridInfoFields){
+    let properties= null;
+    for (let index = 0; index < gridInfoFields.length; index++) {
+      const field = gridInfoFields[index];  
+      if  (index==0){
+        properties =field.field 
+      }else{
+        properties+=','+field.field
+      }
+    }
+    properties+=',geom'
+    return properties
   }
 }
