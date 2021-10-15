@@ -1,13 +1,19 @@
 /** Estilos propios*/
 
 .info-popup-key {
+  font-size: 10px !important;
   font-weight: bold;
   text-align: left;
 }
 
 .info-popup-value {
+  font-size: 10px !important;
   font-weight: normal;
   text-align: right;
+}
+
+.info-table{
+  width: 200px !important;
 }
 
 .m-areas > div.m-area > div.m-panel.m-gridinfo.collapsed > button.m-panel-btn {
