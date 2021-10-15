@@ -269,15 +269,172 @@ const configGridInfo = {
   zoom: 6,
   info: [
     {
-      style: 'st_',
+      style: 'stl_c011_viviendas_colectivas',
       fields: [
         {
-          field: 'pp',
-          title: 'descripio',
-        },
+          minValue: 0,
+          field: 'c011',
+          title: 'Viviendas colectivas. Urbano',
+        }
+      ]
+    },
+    {
+      style: 'stl_c012_viviendas_unifamiliares',
+      fields: [
         {
-          field: 'pp',
-          title: 'descripio',
+          minValue: 0,
+          field: 'c012',
+          title: 'Viviendas unifamiliares. Urbano',
+        }
+      ]
+    },
+    {
+      style: 'stl_c013_edificiacion_rural',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c013',
+          title: 'Edificación rual',
+        }
+      ]
+    },
+    {
+      style: 'stl_c01G_garages_viviendas',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c01g',
+          title: 'Garajes viviendas',
+        }
+      ]
+    },
+    {
+      style: 'stl_c022_otros_garajes',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c022',
+          title: 'Otros garajes y aparcamientos',
+        }
+      ]
+    },
+    {
+      style: 'stl_c02_industrial',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c02',
+          title: 'Industrial',
+        }
+      ]
+    },
+    {
+      style: 'stl_c03_oficinas',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c03',
+          title: 'Oficinas',
+        }
+      ]
+    },
+    {
+      style: 'stl_c04_comercio',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c04',
+          title: 'Comercio',
+        }
+      ]
+    },
+    {
+      style: 'stl_c05_Deportes',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c05',
+          title: 'Deportes',
+        }
+      ]
+    },
+    {
+      style: 'stl_c05P_piscinas',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c05p',
+          title: 'Piscinas',
+        }
+      ]
+    },
+    {
+      style: 'stl_c06_espectaculos',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c06',
+          title: 'Espectáculos',
+        }
+      ]
+    },
+    {
+      style: 'stl_c07_hosteleria_ocio',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c07',
+          title: 'Hostelería y Ocio',
+        }
+      ]
+    },
+    {
+      style: 'stl_c08_sanitarios_beneficos',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c08',
+          title: 'Sanitarios, asistenciales y benéficos',
+        }
+      ]
+    },
+    {
+      style: 'stl_c09_culturales',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c09',
+          title: 'Culturales',
+        }
+      ]
+    },
+    {
+      style: 'stl_c093_religioso',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c093',
+          title: 'Religiosos',
+        }
+      ]
+    },
+    {
+      style: 'stl_c10_singulares',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c10',
+          title: 'Singulares',
+        }
+      ]
+    },
+    {
+      style: 'stl_c1034_golf',
+      fields: [
+        {
+          minValue: 0,
+          field: 'c1034',
+          title: 'Campos de Golf',
         }
       ]
     }
