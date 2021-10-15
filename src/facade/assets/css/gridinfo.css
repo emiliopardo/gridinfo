@@ -1,6 +1,7 @@
 /** Estilos propios*/
 
 .info-popup-key {
+  color: #000000 !important;
   font-size: 10px !important;
   font-weight: bold;
   text-align: left;
@@ -13,6 +14,7 @@
 }
 
 .info-table{
+  background-color: #f4f4f4;
   width: 200px !important;
 }
 
@@ -24,4 +26,3 @@
   color: #FFFFFF !important;
   background-color: green !important;
 }
-
