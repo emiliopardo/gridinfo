@@ -275,13 +275,12 @@ const configGridInfo = {
           minValue: 0,
           field: 'c011',
           title: 'Viviendas colectivas. Urbano',
+        },
+        {
+          minValue: 0,
+          field: 'c012',
+          title: 'Viviendas unifamiliares. Urbano',
         }
-        // ,
-        // {
-        //   minValue: 10,
-        //   field: 'test',
-        //   title: 'Viviendas colectivas. Urbano',
-        // }
       ]
     },
     {
