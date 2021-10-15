@@ -299,7 +299,7 @@ const configGridInfo = {
         {
           minValue: 0,
           field: 'c013',
-          title: 'Edificación rual',
+          title: 'Edificación rural',
         }
       ]
     },
