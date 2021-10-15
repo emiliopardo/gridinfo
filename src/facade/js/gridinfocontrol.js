@@ -62,14 +62,14 @@ export default class GridinfoControl extends M.Control {
       source: {
         crs: {
           properties: {
-            name: "EPSG:25830"
+            name: 'EPSG:25830'
           },
-          type: "name"
+          type: 'name'
         },
         features: [],
-        type: "FeatureCollection"
+        type: 'FeatureCollection'
       },
-      //extract: false,
+      extract: false,
     }, {
     }, {
       renderMode: 'image'
@@ -151,46 +151,59 @@ export default class GridinfoControl extends M.Control {
         this.start = 0;
         this.totalFeatures = 0;
         zoom = this.map_.getZoom();
-        if (zoom >= this.zoom) {
+        this.selectedGrid = this.getLoadedGridWMS(this.map_.getLayers());
+        if (zoom >= this.zoom && this.selectedGrid) {
+          this.gridInfoFields = this.setGridFieldInfo(this.selectedGrid)
+          this.fieldsFilter = this.setCQLFieldsFilter(this.gridInfoFields);
+          this.propertyNames = this.setPropertyNames(this.gridInfoFields);
           this.bbox = this.map_.getBbox();
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
-          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER='+this.fieldsFilter+' AND '+this.bboxFilter+'&propertyName='+this.propertyNames+'&outputFormat=application/json');
+          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
       });
     });
 
     this.map_.on(M.evt.ADDED_WMS, () => {
-      this.selectedGrid = this.getLoadedGridWMS();
-      if (this.selectedGrid) {
-        this.gridInfoFields= this.setGridFieldInfo(this.selectedGrid)
+      this.vectorLayer.clear();
+      this.start = 0;
+      this.totalFeatures = 0;
+      zoom = this.map_.getZoom();
+      this.selectedGrid = this.getLoadedGridWMS(this.map_.getLayers());
+      if (zoom >= this.zoom && this.selectedGrid) {
+        this.gridInfoFields = this.setGridFieldInfo(this.selectedGrid)
         this.fieldsFilter = this.setCQLFieldsFilter(this.gridInfoFields);
         this.propertyNames = this.setPropertyNames(this.gridInfoFields);
-      } else {
-        console.log('no hay')
+        this.bbox = this.map_.getBbox();
+        this.bboxFilter = this.setCQLBboxFiler(this.bbox)
+        this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
+        this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
       }
     })
   }
 
-  getLoadedGridWMS() {
-    let find = false;
-    let layers = this.map_.getLayers();
+  getLoadedGridWMS(layers) {
     let selectedGrid = null
-    do {
-      for (let index = 0; index < layers.length; index++) {
-        const layer = layers[index];
-        if (layer instanceof M.layer.WMS) {
-          selectedGrid = (layer.options.styles)
-
+    for (let index = 0; index < layers.length; index++) {
+      const layer = layers[index];
+      if (layer instanceof M.layer.WMS && this.isGridLayer(layer)) {
+          selectedGrid = layer.options.styles
         }
-        if (index == layers.length - 1) {
-          find = true;
-        }
-      }
-    } while (!find);
+      }   
     return selectedGrid
   }
 
+
+  isGridLayer(layer) {
+    let result = false;
+    for (let index = 0; index < this.info.length; index++) {
+      const element = this.info[index];
+      if (element.style == layer.options.styles) {
+        result = true
+      }
+    }
+    return result;
+  }
 
   setGridFieldInfo(selectedGrid) {
     let find = false
@@ -198,13 +211,13 @@ export default class GridinfoControl extends M.Control {
     do {
       for (let index = 0; index < this.info.length; index++) {
         const element = this.info[index];
-        if (element.style == selectedGrid){
-          gridInfoFields =  element.fields
+        if (element.style == selectedGrid) {
+          gridInfoFields = element.fields
         }
         if (index == this.info.length - 1) {
           find = true;
-        }   
-      }   
+        }
+      }
     } while (!find);
     return gridInfoFields
   }
@@ -216,7 +229,7 @@ export default class GridinfoControl extends M.Control {
       if (this.start + this.batchsize > this.limit) {
         this.batchsize = this.limit - this.start;
       }
-      M.remote.get(url + "&STARTINDEX=" + this.start + "&COUNT=" + this.batchsize).then((res) => {
+      M.remote.get(url + '&STARTINDEX=' + this.start + '&COUNT=' + this.batchsize).then((res) => {
         let wfs = JSON.parse(res.text);
         this.totalFeatures = wfs.totalFeatures;
         // Si hay limite, tiene preferencia
@@ -228,7 +241,7 @@ export default class GridinfoControl extends M.Control {
           // Se combierte de multipolygon a polygon
           let newFeat = new M.Feature(f.id, f);
           let geom = newFeat.getGeometry();
-          geom.type = "Polygon";
+          geom.type = 'Polygon';
           let coord = geom.coordinates[0];
           geom.coordinates = coord;
           newFeat.setGeometry(geom);
@@ -260,11 +273,10 @@ export default class GridinfoControl extends M.Control {
     let gridCenter = this.getPolygonCenter(feature.getGeometry())
     let coordenada_X = gridCenter[0];
     let coordenada_Y = gridCenter[1];
-    let myContent =
-      "<table><tr><td class='info-popup-value'>" + feature.getAttribute('ctotal') + "</td></tr></table>";
+    let myContent = this.setInfoTable(feature)
     let featureTabOpts = {
-      icon: "g-cartografia-pin",
-      title: "Información",
+      icon: 'g-cartografia-pin',
+      title: 'Información',
       content: myContent,
     };
     this.popup = new M.Popup({ panMapIfOutOfView: false });
@@ -291,34 +303,44 @@ export default class GridinfoControl extends M.Control {
     this.map_.removePopup(this.popup)
   }
 
-  setCQLBboxFiler(bbox){
+  setCQLBboxFiler(bbox) {
     return 'BBOX(geom,' + bbox.x.min + ',' + bbox.y.min + ',' + bbox.x.max + ',' + bbox.y.max + ')';
   }
 
-  setCQLFieldsFilter(gridInfoFields){
+  setCQLFieldsFilter(gridInfoFields) {
     let filter = null;
     for (let index = 0; index < gridInfoFields.length; index++) {
-      const field = gridInfoFields[index]; 
-      if  (index==0){
-        filter =field.field+'>'+field.minValue; 
-      }else{
-        filter+=' AND '+field.field+'>'+field.minValue
-      }
-    }  
-      return filter
-  }
-
-  setPropertyNames(gridInfoFields){
-    let properties= null;
-    for (let index = 0; index < gridInfoFields.length; index++) {
-      const field = gridInfoFields[index];  
-      if  (index==0){
-        properties =field.field 
-      }else{
-        properties+=','+field.field
+      const field = gridInfoFields[index];
+      if (index == 0) {
+        filter = field.field + '>' + field.minValue;
+      } else {
+        filter += ' AND ' + field.field + '>' + field.minValue
       }
     }
-    properties+=',geom'
+    return filter
+  }
+
+  setPropertyNames(gridInfoFields) {
+    let properties = null;
+    for (let index = 0; index < gridInfoFields.length; index++) {
+      const field = gridInfoFields[index];
+      if (index == 0) {
+        properties = field.field
+      } else {
+        properties += ',' + field.field
+      }
+    }
+    properties += ',geom'
     return properties
+  }
+
+  setInfoTable(feature) {
+    let table = '<table class="info-table">'
+    for (let index = 0; index < this.gridInfoFields.length; index++) {
+      const element = this.gridInfoFields[index];
+      table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + feature.getAttribute(element.field) + '</td></tr>';
+    }
+    table += '</table>'
+    return table
   }
 }
