@@ -5,17 +5,24 @@
   font-size: 10px !important;
   font-weight: bold;
   text-align: left;
+  padding: 5px;
 }
 
 .info-popup-value {
   font-size: 10px !important;
   font-weight: normal;
   text-align: right;
+  padding: 5px;
 }
 
 .info-table{
   background-color: #f4f4f4;
-  width: 200px !important;
+  width: 100% !important;
+}
+
+
+.m-areas > div.m-area > div.m-panel.m-gridinfo> button.m-panel-btn {
+  display: none !important;
 }
 
 .m-areas > div.m-area > div.m-panel.m-gridinfo.collapsed > button.m-panel-btn {

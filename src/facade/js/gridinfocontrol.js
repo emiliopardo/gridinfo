@@ -25,7 +25,8 @@ export default class GridinfoControl extends M.Control {
     super(impl, 'Gridinfo');
     this.config = config
     this.wfsUrl = this.config.wfsUrl;
-    this.layer = this.config.layer;
+    this.wmsUrl = this.config.wmsUrl;
+    this.layer = this.config.wfsLayer;
     this.url = null;
     this.map_ = this.map
     this.zoom = this.config.zoom;
@@ -49,8 +50,8 @@ export default class GridinfoControl extends M.Control {
 
     this.polygonSelectedStyle = new M.style.Polygon({
       fill: {
-        color: '#ffffff',
-        opacity: 0.1,
+        color: '#FF0000',
+        opacity: 1,
       },
       stroke: {
         color: '#FFFF00',
@@ -144,6 +145,19 @@ export default class GridinfoControl extends M.Control {
 
   addEvents(html) {
     this.map_.addLayers(this.vectorLayer);
+
+    //this.map_.on(M.evt.COMPLETED, () => {
+    // this.map_.getMapImpl().on('moveend', () => {
+    this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
+      this.selectedDataShow(feature[0]);
+    });
+    
+    this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
+      feature[0].setStyle(this.polygonStyle);
+      this.selectedDataHide();
+    });
+    // });
+    //});
     let zoom;
     this.map_.on(M.evt.COMPLETED, () => {
       this.map_.getMapImpl().on('moveend', () => {
@@ -160,6 +174,8 @@ export default class GridinfoControl extends M.Control {
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
           this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
+
+
         }
       });
     });
@@ -180,6 +196,42 @@ export default class GridinfoControl extends M.Control {
         this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
       }
     })
+
+    this.map_.on(M.evt.CLICK, (event) => {
+      let layer = this.getLoadedLayer(this.map_.getLayers());
+      if (layer) {
+        let mapClick = event.coord;
+        let imageClick = event.pixel;
+        let layerUrl = layer.getImpl().url
+        let layerName = layer.name
+        let layerStyle = layer.options.styles
+        let mapBbox = this.map_.getBbox();
+        let imageSize = this.map_.getImpl().map_.getSize()
+        let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
+        M.remote.get(getInfoUrl).then((res) => {
+          let myContent = res.text
+          let featureTabOpts = {
+            icon: 'g-cartografia-pin',
+            title: 'Información',
+            content: myContent,
+          };
+          this.popup = new M.Popup({ panMapIfOutOfView: true });
+          this.popup.addTab(featureTabOpts);
+          this.map_.addPopup(this.popup, [mapClick[0], mapClick[1]]);
+        })
+      }
+    })
+  }
+
+  getLoadedLayer(layers) {
+    let loadedLayer = null
+    for (let index = 0; index < layers.length; index++) {
+      const layer = layers[index];
+      if (layer instanceof M.layer.WMS && this.isGridLayer(layer)) {
+        loadedLayer = layer
+      }
+    }
+    return loadedLayer
   }
 
   getLoadedGridWMS(layers) {
@@ -187,9 +239,12 @@ export default class GridinfoControl extends M.Control {
     for (let index = 0; index < layers.length; index++) {
       const layer = layers[index];
       if (layer instanceof M.layer.WMS && this.isGridLayer(layer)) {
-          selectedGrid = layer.options.styles
-        }
-      }   
+        //console.log(layer)
+        selectedGrid = layer.options.styles
+        //console.log(selectedGrid)
+      }
+    }
+
     return selectedGrid
   }
 
@@ -198,7 +253,13 @@ export default class GridinfoControl extends M.Control {
     let result = false;
     for (let index = 0; index < this.info.length; index++) {
       const element = this.info[index];
-      if (element.style == layer.options.styles) {
+      if (layer.getImpl().url == this.wmsUrl && layer.name == element.wmsLayer && element.style == layer.options.styles) {
+        // console.log(layer.getImpl().url);
+        // console.log(this.wmsUrl);
+        // console.log(layer.name);
+        // console.log(element.wmsLayer);
+        // console.log(layer.options.styles);
+        // console.log(element.style);
         result = true
       }
     }
@@ -256,21 +317,14 @@ export default class GridinfoControl extends M.Control {
         if (this.vectorLayer.getFeatures().length < this.totalFeatures) {
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
-
-        this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
-          this.selectedDataShow(feature[0]);
-        });
-
-        this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
-          feature[0].setStyle(this.polygonStyle);
-          this.selectedDataHide();
-        });
       });
     }
   }
 
   setInfoPopUp(feature) {
+
     let gridCenter = this.getPolygonCenter(feature.getGeometry())
+    console.log(gridCenter)
     let coordenada_X = gridCenter[0];
     let coordenada_Y = gridCenter[1];
     let myContent = this.setInfoTable(feature)
@@ -285,6 +339,7 @@ export default class GridinfoControl extends M.Control {
   }
 
   getPolygonCenter(geometry) {
+
     let minPointX = geometry.coordinates[0][0][0]
     let minPointY = geometry.coordinates[0][0][1]
     let maxPointX = geometry.coordinates[0][2][0]
