@@ -33,31 +33,35 @@ export default class GridinfoControl extends M.Control {
     this.info = this.config.info;
     this.geoJSON = null;
     this.popup = null;
+    this.popupInfo = null;
     this.start = null;
     this.totalFeatures = null;
     this.batchsize = 100;
     this.limit = 1000;
+    //this.getFeatureInfo = false;
+    this.selectedFeatureInfo = null;
     this.polygonStyle = new M.style.Polygon({
       fill: {
         color: '#ffffff',
-        opacity: 0.1,
+        opacity: 0,
       },
       stroke: {
         color: '#cdcdcd',
-        width: 1.5
+        width: 0.1
       }
     });
 
     this.polygonSelectedStyle = new M.style.Polygon({
       fill: {
-        color: '#FF0000',
-        opacity: 1,
+        color: '#FFFFFF',
+        opacity: 0,
       },
       stroke: {
         color: '#FFFF00',
-        width: 3
+        width: 4
       }
     });
+
     this.vectorLayer = new M.layer.GeoJSON({
       name: 'vectorLayer',
       source: {
@@ -146,22 +150,25 @@ export default class GridinfoControl extends M.Control {
   addEvents(html) {
     this.map_.addLayers(this.vectorLayer);
 
-    //this.map_.on(M.evt.COMPLETED, () => {
-    // this.map_.getMapImpl().on('moveend', () => {
     this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
-      this.selectedDataShow(feature[0]);
+      //if (!this.getFeatureInfo) {
+        this.selectedFeature = feature[0]
+        this.selectedDataShow(feature[0]);
+      //}
     });
-    
+
     this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
-      feature[0].setStyle(this.polygonStyle);
-      this.selectedDataHide();
+      //if (!this.getFeatureInfo) {
+        feature[0].setStyle(this.polygonStyle);
+        this.selectedFeature = null;
+        this.selectedDataHide();
+      //}
     });
-    // });
-    //});
+
     let zoom;
     this.map_.on(M.evt.COMPLETED, () => {
       this.map_.getMapImpl().on('moveend', () => {
-        this.vectorLayer.clear();
+        //this.vectorLayer.clear();
         this.start = 0;
         this.totalFeatures = 0;
         zoom = this.map_.getZoom();
@@ -174,9 +181,8 @@ export default class GridinfoControl extends M.Control {
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
           this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
-
-
         }
+        //this.getFeatureInfo = false;
       });
     });
 
@@ -215,9 +221,10 @@ export default class GridinfoControl extends M.Control {
             title: 'Información',
             content: myContent,
           };
-          this.popup = new M.Popup({ panMapIfOutOfView: true });
-          this.popup.addTab(featureTabOpts);
-          this.map_.addPopup(this.popup, [mapClick[0], mapClick[1]]);
+          this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
+          this.popupInfo.addTab(featureTabOpts);
+          this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
+          //this.getFeatureInfo = true;
         })
       }
     })
@@ -239,12 +246,9 @@ export default class GridinfoControl extends M.Control {
     for (let index = 0; index < layers.length; index++) {
       const layer = layers[index];
       if (layer instanceof M.layer.WMS && this.isGridLayer(layer)) {
-        //console.log(layer)
         selectedGrid = layer.options.styles
-        //console.log(selectedGrid)
       }
     }
-
     return selectedGrid
   }
 
@@ -324,7 +328,6 @@ export default class GridinfoControl extends M.Control {
   setInfoPopUp(feature) {
 
     let gridCenter = this.getPolygonCenter(feature.getGeometry())
-    console.log(gridCenter)
     let coordenada_X = gridCenter[0];
     let coordenada_Y = gridCenter[1];
     let myContent = this.setInfoTable(feature)
@@ -335,11 +338,13 @@ export default class GridinfoControl extends M.Control {
     };
     this.popup = new M.Popup({ panMapIfOutOfView: false });
     this.popup.addTab(featureTabOpts);
-    this.map_.addPopup(this.popup, [coordenada_X, coordenada_Y]);
+    setTimeout(() => {
+      this.map_.addPopup(this.popup, [coordenada_X, coordenada_Y]);
+    }, 200);
+
   }
 
   getPolygonCenter(geometry) {
-
     let minPointX = geometry.coordinates[0][0][0]
     let minPointY = geometry.coordinates[0][0][1]
     let maxPointX = geometry.coordinates[0][2][0]
@@ -355,7 +360,9 @@ export default class GridinfoControl extends M.Control {
   }
 
   selectedDataHide() {
-    this.map_.removePopup(this.popup)
+    if (!this.selectedFeature) {
+      this.map_.removePopup(this.popup)
+    }
   }
 
   setCQLBboxFiler(bbox) {
