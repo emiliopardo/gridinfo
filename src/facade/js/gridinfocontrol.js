@@ -170,7 +170,7 @@ export default class GridinfoControl extends M.Control {
     this.map_.addLayers(this.vectorLayer);
     this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
       this.selectedFeature = feature[0]
-      console.log(this.selectedFeature)
+      // console.log(this.selectedFeature)
       this.selectedDataShow(feature[0]);
     });
 
@@ -218,7 +218,7 @@ export default class GridinfoControl extends M.Control {
 
     this.map_.on(M.evt.CLICK, (event) => {
       let layer = this.getLoadedLayer(this.map_.getLayers());
-      if(this.selectedFeature){
+      if (this.selectedFeature) {
         this.infoFeature = this.selectedFeature;
         this.infoFeature.setStyle(this.polygonSelectedStyle2);
       }
