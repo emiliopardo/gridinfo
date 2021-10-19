@@ -38,8 +38,8 @@ export default class GridinfoControl extends M.Control {
     this.totalFeatures = null;
     this.batchsize = 100;
     this.limit = 1000;
-    //this.getFeatureInfo = false;
-    this.selectedFeatureInfo = null;
+    this.selectedFeature = null;
+    this.infoFeature = null;
     this.polygonStyle = new M.style.Polygon({
       fill: {
         color: '#ffffff',
@@ -61,6 +61,20 @@ export default class GridinfoControl extends M.Control {
         width: 4
       }
     });
+
+
+    this.polygonSelectedStyle2 = new M.style.Polygon({
+      fill: {
+        color: '#FF0000',
+        opacity: 0.5,
+      },
+      stroke: {
+        color: '#000000',
+        width: 4
+      }
+    });
+
+
 
     this.vectorLayer = new M.layer.GeoJSON({
       name: 'vectorLayer',
@@ -147,28 +161,28 @@ export default class GridinfoControl extends M.Control {
 
   // Add your own functions
 
+
+  //1º Probar test un register envents cuando click ->los eventos no deben ser funciones anonimas
+
+
+
   addEvents(html) {
     this.map_.addLayers(this.vectorLayer);
-
     this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
-      //if (!this.getFeatureInfo) {
-        this.selectedFeature = feature[0]
-        this.selectedDataShow(feature[0]);
-      //}
+      this.selectedFeature = feature[0]
+      console.log(this.selectedFeature)
+      this.selectedDataShow(feature[0]);
     });
 
     this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
-      //if (!this.getFeatureInfo) {
-        feature[0].setStyle(this.polygonStyle);
-        this.selectedFeature = null;
-        this.selectedDataHide();
-      //}
+      feature[0].setStyle(this.polygonStyle);
+      this.selectedFeature = null;
+      this.selectedDataHide();
     });
 
     let zoom;
     this.map_.on(M.evt.COMPLETED, () => {
       this.map_.getMapImpl().on('moveend', () => {
-        //this.vectorLayer.clear();
         this.start = 0;
         this.totalFeatures = 0;
         zoom = this.map_.getZoom();
@@ -182,7 +196,6 @@ export default class GridinfoControl extends M.Control {
           this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
-        //this.getFeatureInfo = false;
       });
     });
 
@@ -205,6 +218,10 @@ export default class GridinfoControl extends M.Control {
 
     this.map_.on(M.evt.CLICK, (event) => {
       let layer = this.getLoadedLayer(this.map_.getLayers());
+      if(this.selectedFeature){
+        this.infoFeature = this.selectedFeature;
+        this.infoFeature.setStyle(this.polygonSelectedStyle2);
+      }
       if (layer) {
         let mapClick = event.coord;
         let imageClick = event.pixel;
@@ -224,7 +241,7 @@ export default class GridinfoControl extends M.Control {
           this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
           this.popupInfo.addTab(featureTabOpts);
           this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
-          //this.getFeatureInfo = true;
+          console.log('he hecho click')
         })
       }
     })
