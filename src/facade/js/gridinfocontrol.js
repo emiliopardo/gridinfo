@@ -65,11 +65,11 @@ export default class GridinfoControl extends M.Control {
 
     this.polygonSelectedStyle2 = new M.style.Polygon({
       fill: {
-        color: '#FF0000',
-        opacity: 0.5,
+        color: '#FFFFFF',
+        opacity: 0,
       },
       stroke: {
-        color: '#000000',
+        color: '#FF0000',
         width: 4
       }
     });
@@ -168,17 +168,42 @@ export default class GridinfoControl extends M.Control {
 
   addEvents(html) {
     this.map_.addLayers(this.vectorLayer);
+
     this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
       this.selectedFeature = feature[0]
-      // console.log(this.selectedFeature)
-      this.selectedDataShow(feature[0]);
+      this.selectedDataShow(feature[0])
     });
+
 
     this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
       feature[0].setStyle(this.polygonStyle);
       this.selectedFeature = null;
       this.selectedDataHide();
     });
+
+
+
+    // if (this.infoFeature) {
+    //   this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
+    //     if (feature[0].getImpl().getId() == this.infoFeature.getImpl().getId()) {
+    //       console.log('son features iguales')
+    //       // feature[0].setStyle(this.polygonStyle);
+    //       // this.selectedFeature = null;
+    //       //this.selectedDataHide();
+    //     }else{
+    //       console.log('son features diferentes')
+    //       feature[0].setStyle(this.polygonStyle);
+    //       this.selectedFeature = null;
+    //       this.selectedDataHide();
+    //     }
+    //   })
+    // } else {
+    //   this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
+    //     feature[0].setStyle(this.polygonStyle);
+    //     this.selectedFeature = null;
+    //     this.selectedDataHide();
+    //   });
+    // }
 
     let zoom;
     this.map_.on(M.evt.COMPLETED, () => {
@@ -220,6 +245,7 @@ export default class GridinfoControl extends M.Control {
       let layer = this.getLoadedLayer(this.map_.getLayers());
       if (this.selectedFeature) {
         this.infoFeature = this.selectedFeature;
+        //console.log(this.infoFeature)
         this.infoFeature.setStyle(this.polygonSelectedStyle2);
       }
       if (layer) {
@@ -242,6 +268,7 @@ export default class GridinfoControl extends M.Control {
           this.popupInfo.addTab(featureTabOpts);
           this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
           console.log('he hecho click')
+
         })
       }
     })
