@@ -237,12 +237,11 @@ export default class GridinfoControl extends M.Control {
         let layerStyle = layer.options.styles
         let mapBbox = this.map_.getBbox();
         let imageSize = this.map_.getImpl().map_.getSize()
-        M.dialog.info('<p class="g-cartografia-spinner">Solicitando Información<p>')
         let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
+        //M.dialog.info('<div class="loader"></div>')
         M.remote.get(getInfoUrl).then((res) => {
           let myContent = res.text
           if (myContent.search('<table ') != -1) {
-
             let featureTabOpts = {
               icon: 'g-cartografia-pin',
               title: 'Información',
@@ -251,8 +250,6 @@ export default class GridinfoControl extends M.Control {
             this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
             this.popupInfo.addTab(featureTabOpts);
             this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
-            //this.udpateStyle(this.vectorLayer.getFeatures())
-
             let closePopupButton = document.getElementsByClassName('m-popup-closer')[0]
             closePopupButton.addEventListener('click', () => {
               this.getInfoFeature = null;
@@ -348,7 +345,6 @@ export default class GridinfoControl extends M.Control {
           let coord = geom.coordinates[0];
           geom.coordinates = coord;
           newFeat.setGeometry(geom);
-          //newFeat.setStyle(this.polygonStyle);
           if (this.getInfoFeature && (newFeat.getId() == this.getInfoFeature.getId())) {
             newFeat.setStyle(this.polygonSelectedStyle2)
           } else {
@@ -358,11 +354,18 @@ export default class GridinfoControl extends M.Control {
         });
 
         this.start = this.start + this.batchsize;
-
         this.vectorLayer.addFeatures(features);
         // Si aun faltan features por cargar, iteramos
         if (this.vectorLayer.getFeatures().length < this.totalFeatures) {
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
+          console.log('faltan por cargar datos')
+        } else {
+          // const dialogs = document.querySelectorAll('div.m-dialog');
+          // Array.prototype.forEach.call(dialogs, (dialog) => {
+          //   const parent = dialog.parentElement;
+          //   parent.removeChild(dialog);
+          // });
+          console.log('se cargaron los datos')
         }
       });
     }
