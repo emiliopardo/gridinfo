@@ -229,22 +229,25 @@ export default class GridinfoControl extends M.Control {
         let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
         M.remote.get(getInfoUrl).then((res) => {
           let myContent = res.text
-          let featureTabOpts = {
-            icon: 'g-cartografia-pin',
-            title: 'Información',
-            content: myContent,
-          };
-          this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
-          this.popupInfo.addTab(featureTabOpts);
-          this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
-
-          let closePopupButton = document.getElementsByClassName('m-popup-closer')[0]
-          closePopupButton.addEventListener('click',()=>{
-            this.getInfoQuery=false;
-            if(this.getInfoFeature){
-              this.getInfoFeature.setStyle(this.polygonStyle);
-            }
-          })
+          if (myContent.search('<table ')!=-1){
+            
+            let featureTabOpts = {
+              icon: 'g-cartografia-pin',
+              title: 'Información',
+              content: myContent,
+            };
+            this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
+            this.popupInfo.addTab(featureTabOpts);
+            this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
+  
+            let closePopupButton = document.getElementsByClassName('m-popup-closer')[0]
+            closePopupButton.addEventListener('click',()=>{
+              this.getInfoQuery=false;
+              if(this.getInfoFeature){
+                this.getInfoFeature.setStyle(this.polygonStyle);
+              }
+            })
+          }
         })
       }
     })
