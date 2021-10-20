@@ -39,7 +39,8 @@ export default class GridinfoControl extends M.Control {
     this.batchsize = 100;
     this.limit = 1000;
     this.selectedFeature = null;
-    this.infoFeature = null;
+    this.getInfoFeature = null;
+    this.getInfoQuery = false;
     this.polygonStyle = new M.style.Polygon({
       fill: {
         color: '#ffffff',
@@ -61,20 +62,6 @@ export default class GridinfoControl extends M.Control {
         width: 4
       }
     });
-
-
-    this.polygonSelectedStyle2 = new M.style.Polygon({
-      fill: {
-        color: '#FFFFFF',
-        opacity: 0,
-      },
-      stroke: {
-        color: '#FF0000',
-        width: 4
-      }
-    });
-
-
 
     this.vectorLayer = new M.layer.GeoJSON({
       name: 'vectorLayer',
@@ -161,49 +148,32 @@ export default class GridinfoControl extends M.Control {
 
   // Add your own functions
 
-
-  //1º Probar test un register envents cuando click ->los eventos no deben ser funciones anonimas
-
-
-
   addEvents(html) {
     this.map_.addLayers(this.vectorLayer);
 
+
     this.vectorLayer.on(M.evt.HOVER_FEATURES, (feature) => {
+      if (!this.getInfoQuery) {
       this.selectedFeature = feature[0]
       this.selectedDataShow(feature[0])
+      }
     });
 
 
     this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
-      feature[0].setStyle(this.polygonStyle);
-      this.selectedFeature = null;
-      this.selectedDataHide();
+      if (!this.getInfoQuery) {
+        feature[0].setStyle(this.polygonStyle);
+        this.selectedFeature = null;
+        this.selectedDataHide();
+      }
     });
 
-
-
-    // if (this.infoFeature) {
-    //   this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
-    //     if (feature[0].getImpl().getId() == this.infoFeature.getImpl().getId()) {
-    //       console.log('son features iguales')
-    //       // feature[0].setStyle(this.polygonStyle);
-    //       // this.selectedFeature = null;
-    //       //this.selectedDataHide();
-    //     }else{
-    //       console.log('son features diferentes')
-    //       feature[0].setStyle(this.polygonStyle);
-    //       this.selectedFeature = null;
-    //       this.selectedDataHide();
-    //     }
-    //   })
-    // } else {
-    //   this.vectorLayer.on(M.evt.LEAVE_FEATURES, (feature) => {
-    //     feature[0].setStyle(this.polygonStyle);
-    //     this.selectedFeature = null;
-    //     this.selectedDataHide();
-    //   });
-    // }
+    this.vectorLayer.on(M.evt.SELECT_FEATURES, (feature) => {
+      this.getInfoFeature = feature[0];
+      this.getInfoQuery = true;
+      feature[0].setStyle(this.polygonSelectedStyle);
+      this.selectedFeature = feature[0]
+    })
 
     let zoom;
     this.map_.on(M.evt.COMPLETED, () => {
@@ -245,8 +215,8 @@ export default class GridinfoControl extends M.Control {
       let layer = this.getLoadedLayer(this.map_.getLayers());
       if (this.selectedFeature) {
         this.infoFeature = this.selectedFeature;
-        //console.log(this.infoFeature)
-        this.infoFeature.setStyle(this.polygonSelectedStyle2);
+        this.infoFeature.setStyle(this.polygonSelectedStyle);
+        this.getInfoQuery=true;
       }
       if (layer) {
         let mapClick = event.coord;
@@ -267,8 +237,14 @@ export default class GridinfoControl extends M.Control {
           this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
           this.popupInfo.addTab(featureTabOpts);
           this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
-          console.log('he hecho click')
 
+          let closePopupButton = document.getElementsByClassName('m-popup-closer')[0]
+          closePopupButton.addEventListener('click',()=>{
+            this.getInfoQuery=false;
+            if(this.getInfoFeature){
+              this.getInfoFeature.setStyle(this.polygonStyle);
+            }
+          })
         })
       }
     })
@@ -295,7 +271,6 @@ export default class GridinfoControl extends M.Control {
     }
     return selectedGrid
   }
-
 
   isGridLayer(layer) {
     let result = false;
@@ -404,7 +379,7 @@ export default class GridinfoControl extends M.Control {
   }
 
   selectedDataHide() {
-    if (!this.selectedFeature) {
+    if (!this.getInfoQuery) {
       this.map_.removePopup(this.popup)
     }
   }
