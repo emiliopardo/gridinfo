@@ -1,6 +1,6 @@
-import M$plugin$Gridinfo from 'C:/proyectos/gridinfo/src/facade/js/gridinfo';
-import M$control$GridinfoControl from 'C:/proyectos/gridinfo/src/facade/js/gridinfocontrol';
-import M$impl$control$GridinfoControl from 'C:/proyectos/gridinfo/src/impl/ol/js/gridinfocontrol';
+import M$plugin$Gridinfo from '/home/epardo/proyectos/gridinfo/src/facade/js/gridinfo';
+import M$control$GridinfoControl from '/home/epardo/proyectos/gridinfo/src/facade/js/gridinfocontrol';
+import M$impl$control$GridinfoControl from '/home/epardo/proyectos/gridinfo/src/impl/ol/js/gridinfocontrol';
 
 if (!window.M.plugin) window.M.plugin = {};
 if (!window.M.control) window.M.control = {};
