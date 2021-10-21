@@ -41,6 +41,7 @@ export default class GridinfoControl extends M.Control {
     this.selectedFeature = null;
     this.getInfoFeature = null;
     this.getInfoQuery = false;
+
     this.polygonStyle = new M.style.Polygon({
       fill: {
         color: '#ffffff',
@@ -199,8 +200,10 @@ export default class GridinfoControl extends M.Control {
           this.bbox = this.map_.getBbox();
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
           this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
+          this.showLoader();
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
+
         this.udpateStyle(this.vectorLayer.getFeatures());
       });
     });
@@ -218,7 +221,9 @@ export default class GridinfoControl extends M.Control {
         this.bbox = this.map_.getBbox();
         this.bboxFilter = this.setCQLBboxFiler(this.bbox)
         this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
+        this.showLoader();
         this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
+
       }
     })
 
@@ -238,7 +243,6 @@ export default class GridinfoControl extends M.Control {
         let mapBbox = this.map_.getBbox();
         let imageSize = this.map_.getImpl().map_.getSize()
         let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
-        //M.dialog.info('<div class="loader"></div>')
         M.remote.get(getInfoUrl).then((res) => {
           let myContent = res.text
           if (myContent.search('<table ') != -1) {
@@ -358,14 +362,10 @@ export default class GridinfoControl extends M.Control {
         // Si aun faltan features por cargar, iteramos
         if (this.vectorLayer.getFeatures().length < this.totalFeatures) {
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
-          console.log('faltan por cargar datos')
+          //console.log('faltan por cargar datos')
         } else {
-          // const dialogs = document.querySelectorAll('div.m-dialog');
-          // Array.prototype.forEach.call(dialogs, (dialog) => {
-          //   const parent = dialog.parentElement;
-          //   parent.removeChild(dialog);
-          // });
-          console.log('se cargaron los datos')
+          //console.log('se cargaron los datos')
+          this.hideLoader()
         }
       });
     }
@@ -461,6 +461,28 @@ export default class GridinfoControl extends M.Control {
         feature.setStyle(this.polygonStyle)
       }
     }
+  }
 
+  showLoader() {
+    const mapeaContainer = document.querySelector('div.m-mapea-container');
+
+    let loader = document.createElement('div');
+    loader.setAttribute('id', 'loader');
+    loader.setAttribute('class', 'loader');
+    let spinner = document.createElement('div');
+    spinner.setAttribute('class', 'loader-spinner')
+    
+    let textLoader = document.createElement('div')
+    textLoader.setAttribute('class', 'loader-text')
+    let text = document.createTextNode("Cargando Datos");
+    textLoader.appendChild(text)
+    loader.appendChild(spinner);
+    loader.appendChild(textLoader);
+    mapeaContainer.appendChild(loader);
+  }
+
+  hideLoader() {
+    let loader = document.getElementById('loader');
+    loader.remove();
   }
 }
