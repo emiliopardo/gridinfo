@@ -26,11 +26,13 @@ export default class GridinfoControl extends M.Control {
     this.config = config
     this.wfsUrl = this.config.wfsUrl;
     this.wmsUrl = this.config.wmsUrl;
+    this.infoUrl = this.config.infoUrl;
     this.layer = this.config.wfsLayer;
-    this.url = null;
-    this.map_ = this.map
+    this.infoLayer = this.config.infoLayer;
     this.zoom = this.config.zoom;
     this.info = this.config.info;
+    this.url = null;
+    this.map_ = this.map
     this.geoJSON = null;
     this.popup = null;
     this.popupInfo = null;
@@ -228,7 +230,7 @@ export default class GridinfoControl extends M.Control {
     })
 
     this.map_.on(M.evt.CLICK, (event) => {
-      let layer = this.getLoadedLayer(this.map_.getLayers());
+      let layer = this.getLoadedLayer(this.map_.getLayers());  
       if (this.selectedFeature) {
         this.selectedFeature.setStyle(this.polygonStyle)
         this.getInfoQuery = true;
@@ -237,9 +239,9 @@ export default class GridinfoControl extends M.Control {
       if (layer) {
         let mapClick = event.coord;
         let imageClick = event.pixel;
-        let layerUrl = layer.getImpl().url
-        let layerName = layer.name
-        let layerStyle = layer.options.styles
+        let layerUrl = this.infoUrl;
+        let layerName = this.infoLayer;
+        let layerStyle = layer.options.styles;
         let mapBbox = this.map_.getBbox();
         let imageSize = this.map_.getImpl().map_.getSize()
         let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
@@ -263,17 +265,17 @@ export default class GridinfoControl extends M.Control {
         M.remote.get(getInfoUrl).then((res) => {
           let response = res.text
           if (response.search('<table ') != -1) {
-            popupContent.innerHTML = response;           
+            popupContent.innerHTML = response;
           } else {
             popupContent.innerHTML = '<div class="info-msg">No ha seleccionado una celdilla</div>';
             this.getInfoFeature = null;
             this.getInfoQuery = false;
-            setTimeout(()=>{
-              if(this.popupInfo){
+            setTimeout(() => {
+              if (this.popupInfo) {
                 this.map_.removePopup(this.popupInfo)
               }
-            },500)
-            
+            }, 500)
+
           }
           this.udpateStyle(this.vectorLayer.getFeatures())
         })
@@ -297,7 +299,8 @@ export default class GridinfoControl extends M.Control {
     for (let index = 0; index < layers.length; index++) {
       const layer = layers[index];
       if (layer instanceof M.layer.WMS && this.isGridLayer(layer)) {
-        selectedGrid = layer.options.styles
+        //selectedGrid = layer.options.styles
+        selectedGrid = layer
       }
     }
     return selectedGrid
@@ -308,12 +311,6 @@ export default class GridinfoControl extends M.Control {
     for (let index = 0; index < this.info.length; index++) {
       const element = this.info[index];
       if (layer.getImpl().url == this.wmsUrl && layer.name == element.wmsLayer && element.style == layer.options.styles) {
-        // console.log(layer.getImpl().url);
-        // console.log(this.wmsUrl);
-        // console.log(layer.name);
-        // console.log(element.wmsLayer);
-        // console.log(layer.options.styles);
-        // console.log(element.style);
         result = true
       }
     }
@@ -326,7 +323,7 @@ export default class GridinfoControl extends M.Control {
     do {
       for (let index = 0; index < this.info.length; index++) {
         const element = this.info[index];
-        if (element.style == selectedGrid) {
+        if (element.style == selectedGrid.options.styles && element.wmsLayer == selectedGrid.name) {
           gridInfoFields = element.fields
         }
         if (index == this.info.length - 1) {
@@ -432,7 +429,7 @@ export default class GridinfoControl extends M.Control {
       if (index == 0) {
         filter = field.field + '>' + field.minValue;
       } else {
-        filter += ' AND ' + field.field + '>' + field.minValue
+        filter += ' AND ' + field.field + '>=' + field.minValue
       }
     }
     return filter
@@ -456,7 +453,12 @@ export default class GridinfoControl extends M.Control {
     let table = '<table class="info-table">'
     for (let index = 0; index < this.gridInfoFields.length; index++) {
       const element = this.gridInfoFields[index];
-      table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + feature.getAttribute(element.field) + '</td></tr>';
+      let value = feature.getAttribute(element.field)
+
+      if(feature.getAttribute(element.field)==-1) {
+        value = 'Secreto estadístico'
+      }
+      table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + value + '</td></tr>';
     }
     table += '</table>'
     return table
@@ -473,13 +475,13 @@ export default class GridinfoControl extends M.Control {
     }
   }
 
-  createLoader(msg){
+  createLoader(msg) {
     let loader = document.createElement('div');
     loader.setAttribute('id', 'loader');
     loader.setAttribute('class', 'loader');
     let spinner = document.createElement('div');
     spinner.setAttribute('class', 'loader-spinner')
-    
+
     let textLoader = document.createElement('div')
     textLoader.setAttribute('class', 'loader-text')
     let text = document.createTextNode(msg);

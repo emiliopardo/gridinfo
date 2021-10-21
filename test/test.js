@@ -9,7 +9,7 @@ const ortofoto2016_color = new M.layer.WMS({
   transparent: false,
   tiled: true
 }, {
-  styles: 'default'
+  styles: ''
 })
 
 ortofoto2016_color.setLegendURL('https://www.ideandalucia.es/visor/leyendas/ortofoto2016_color.png')
@@ -21,7 +21,7 @@ const ortofoto2016_pancromatica = new M.layer.WMS({
   transparent: false,
   tiled: true
 }, {
-  styles: 'default'
+  styles: ''
 })
 
 ortofoto2016_pancromatica.setLegendURL('https://www.ideandalucia.es/visor/leyendas/ortofoto2016_pancromatico.png');
@@ -33,7 +33,7 @@ const ortofoto2016_infrarrojo = new M.layer.WMS({
   transparent: false,
   tiled: true
 }, {
-  styles: 'default'
+  styles: ''
 })
 
 ortofoto2016_infrarrojo.setLegendURL('https://www.ideandalucia.es/visor/leyendas/ortofoto2016_infrarrojo.png');
@@ -46,7 +46,7 @@ const mdt_siose2013 = new M.layer.WMS({
   transparent: false,
   tiled: true
 }, {
-  styles: 'default'
+  styles: ''
 })
 
 mdt_siose2013.setLegendURL('https://www.ideandalucia.es/visor/leyendas/siose_2013.png');
@@ -58,7 +58,7 @@ const mdt_2016 = new M.layer.WMS({
   transparent: false,
   tiled: true
 }, {
-  styles: 'default'
+  styles: ''
 })
 
 mdt_2016.setLegendURL('https://www.ideandalucia.es/visor/leyendas/mdt_2016_tintas_hipsometricas.png');
@@ -341,7 +341,7 @@ const configSimpleBaseLayerSelector = { displayBaseLayersInLayerSwitcher: false 
 
 const configFooterIECA = {
   open: true,
-  htmlCode: '<div id="social"  title="Compartir"> <ul> <li class="no_imprimir"><a id="btnCompartir" href="#"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/compartir24g.png" border="0" alt="Compartir">&nbsp;<span>Compartir</span></a> <ul id="soc_compartir"> <li><a href="https://www.facebook.com/sharer.php?u='+window.location.href+'&amp;t=+Visualizador+IECA&amp;d=" title="Compartir en Facebook" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_facebook.png" border="0" alt="Compartir en Facebook">&nbsp;<span>Facebook</span></a></li><li><a href="https://twitter.com/home?status=Visualizador-'+ window.location.href+'%20v%C3%ADa%20@IECA_Andalucia" title="Compartir en Twitter" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_twitter.png" border="0" alt="Compartir en Twitter">&nbsp;<span>Twitter</span></a></li><li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url='+ window.location.href+'&amp;title=+Visualizador+IECA" title="Compartir en LinkedIn" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_linkedin.png" border="0" alt="Compartir en LinkedIn">&nbsp;<span>LinkedIn</span></a></li><li><a href="mailto:?subject=Compartiendo%20por%20correo%20electr%C3%B3nico&amp;body=%20Visualizador:%0D%0A'+ window.location.href+'" title="Compartir por correo electr&oacute;nico" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_mail.png" border="0" alt="Compartir por correo electr&oacute;nico">&nbsp;<span>e-mail</span></a></li></ul> </li></ul> </div><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/Logo_UE_FEDER.gif" class="feder" alt="Fondos"><div id="footer"> <div id="piea"> <div class="lineacolor fondocolor1">&nbsp;</div><div>&nbsp;</div><div> <div id="piea1"> <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/mapaWeb/index.htm" class="enlaces" accesskey="m">Mapa web</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/avisoLegal/index.htm" class="enlaces" accesskey="l">Aviso legal</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/protecciondedatos/index.html" class="enlaces" accesskey="p">Protecci&oacute;n de datos</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/buzon_web/index.jsp" class="enlaces" accesskey="o">Tu opini&oacute;n</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/accesibilidad/index.htm" class="enlaces" accesskey="a">Accesibilidad</a> <img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/images/w3caa.jpg" alt="Logo de w3c" id="logow3caa"> <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/avisoLegal/index.htm#cc" class="enlaceimg"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/images/cc-by.png" title="Publicado bajo Licencia Creative Commons - Reconocimiento 4.0" alt="CC-BY 4.0" id="logoccby"></a> </div><div id="piea2"> Pabell&oacute;n de Nueva Zelanda. <br>C/ Leonardo Da Vinci, n&deg; 21. Isla de La Cartuja. 41071-SEVILLA.<br>Tlf.: <strong>900 101 407/955 033 800</strong> | Fax: <strong>955 033 816</strong><br></div></div></div></div>',
+  htmlCode: '<div id="social"  title="Compartir"> <ul> <li class="no_imprimir"><a id="btnCompartir" href="#"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/compartir24g.png" border="0" alt="Compartir">&nbsp;<span>Compartir</span></a> <ul id="soc_compartir"> <li><a href="https://www.facebook.com/sharer.php?u=' + window.location.href + '&amp;t=+Visualizador+IECA&amp;d=" title="Compartir en Facebook" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_facebook.png" border="0" alt="Compartir en Facebook">&nbsp;<span>Facebook</span></a></li><li><a href="https://twitter.com/home?status=Visualizador-' + window.location.href + '%20v%C3%ADa%20@IECA_Andalucia" title="Compartir en Twitter" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_twitter.png" border="0" alt="Compartir en Twitter">&nbsp;<span>Twitter</span></a></li><li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=' + window.location.href + '&amp;title=+Visualizador+IECA" title="Compartir en LinkedIn" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_linkedin.png" border="0" alt="Compartir en LinkedIn">&nbsp;<span>LinkedIn</span></a></li><li><a href="mailto:?subject=Compartiendo%20por%20correo%20electr%C3%B3nico&amp;body=%20Visualizador:%0D%0A' + window.location.href + '" title="Compartir por correo electr&oacute;nico" target="_blank"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_mail.png" border="0" alt="Compartir por correo electr&oacute;nico">&nbsp;<span>e-mail</span></a></li></ul> </li></ul> </div><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/Logo_UE_FEDER.gif" class="feder" alt="Fondos"><div id="footer"> <div id="piea"> <div class="lineacolor fondocolor1">&nbsp;</div><div>&nbsp;</div><div> <div id="piea1"> <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/mapaWeb/index.htm" class="enlaces" accesskey="m">Mapa web</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/avisoLegal/index.htm" class="enlaces" accesskey="l">Aviso legal</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/protecciondedatos/index.html" class="enlaces" accesskey="p">Protecci&oacute;n de datos</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/buzon_web/index.jsp" class="enlaces" accesskey="o">Tu opini&oacute;n</a> | <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/accesibilidad/index.htm" class="enlaces" accesskey="a">Accesibilidad</a> <img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/images/w3caa.jpg" alt="Logo de w3c" id="logow3caa"> <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/avisoLegal/index.htm#cc" class="enlaceimg"><img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/images/cc-by.png" title="Publicado bajo Licencia Creative Commons - Reconocimiento 4.0" alt="CC-BY 4.0" id="logoccby"></a> </div><div id="piea2"> Pabell&oacute;n de Nueva Zelanda. <br>C/ Leonardo Da Vinci, n&deg; 21. Isla de La Cartuja. 41071-SEVILLA.<br>Tlf.: <strong>900 101 407/955 033 800</strong> | Fax: <strong>955 033 816</strong><br></div></div></div></div>',
   cssList: [
     'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/css/estiloCabecera2015.css',
     'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/css/estiloGenerico.css',
@@ -350,10 +350,10 @@ const configFooterIECA = {
 }
 
 const configHeaderIECA = {
-  htmlCode: "<!--cabecera-->\n<div id='cabecera'>\n<!-- cabecera Izquierda -->\n<div id='cabecera_1'>\n<div id='logos'>\n<a href='https://www.juntadeandalucia.es'><img alt='Junta de Andaluc&iacute;a' title='Junta de Andaluc&iacute;a' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/cabecera/LogoJuntaA.png'></a>\n<a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/' accesskey='h'><img alt='Web del Instituto de Estad&iacute;stica y Cartograf&iacute;a de Andaluc&iacute;a' title='Web del Instituto de Estad&iacute;stica y Cartograf&iacute;a de Andaluc&iacute;a' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/cabecera/LogoIECAA.png'></a>\n</div>\n</div>\n<!-- fin cabecera izqda -->\n<!-- cabecera derecha -->\n<div id='cabecera_2'>\n<!-- cabecera derecha-izq -->\n<div id='cabecera_2a'>\n<!-- cabecera redes sociales -->\n<div id='redessociales'>\n<a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/blog/'><img alt='S&iacute;guenos en nuestro blog' title='S&iacute;guenos en nuestro blog' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_blogger.png'></a>\n<a href='https://www.twitter.com/IECA_Andalucia'><img alt='S&iacute;guenos en Twitter' title='S&iacute;guenos en Twitter' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_twitter.png'></a>\n<a href='https://www.facebook.com/institutodeestadisticadeandalucia'><img alt='S&iacute;guenos en Facebook' title='S&iacute;guenos en Facebook' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_facebook.png'></a>\n</div>\n<!-- fin cabecera redes sociales -->\n</div>\n<!-- fin cabecera derecha-izq -->\n<!-- Cabecera derecha-derecha -->\n<div id='cabecera_2b'>\n<!-- cabecera menu -->\n<div id='cabecera_2b_menu' class='lateral10 bordecolor2'>\n<ul>\n<li><a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/contacto.html' accesskey='c'>Contacto</a></li>\n<li><a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/suscripcion/index.htm' accesskey='s'>Suscripci&oacute;n</a></li>\n<li><a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/calendario/index.htm' accesskey='d'>Calendario</a></li>\n<li>&nbsp;</li>\n</ul>\n</div>\n<!-- fin cabecera menu -->\n</div>\n<!-- fin Cabecera derecha-derecha -->\n</div>\n<!-- fin cabecera derecha -->\n</div>\n<!-- fin cabecera -->\n"+
-    "<!-- Camino de migas y enlaces de navegaci&oacute;n -->\n<div id='navigation'>\n<div class='lineacolor fondocolor1'>&nbsp;</div>\n<div id='menu_horizontal'>\n<!-- camino de  migas -->\n<div id='menu_horizontal_1'>\n<div id='caminomigas'>\n<img src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/acciones/ico_aqui.png' alt='Ruta'>Est&aacute; en: <a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/'>Inicio</a> - "+
-     "<a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/temas/index-geo.htm'>Georreferenciaci&oacute;n</a>\n" + 
-     " - <a href='../index.htm'>P&aacute;gina del producto</a>            </div>\n</div>\n<!-- fin camino de  migas -->\n<!-- enlaces navegacion -->\n<div id='menu_horizontal_2'>\n<div id='botoneramenu'>\n<!-- menu desplegable -->\n",
+  htmlCode: "<!--cabecera-->\n<div id='cabecera'>\n<!-- cabecera Izquierda -->\n<div id='cabecera_1'>\n<div id='logos'>\n<a href='https://www.juntadeandalucia.es'><img alt='Junta de Andaluc&iacute;a' title='Junta de Andaluc&iacute;a' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/cabecera/LogoJuntaA.png'></a>\n<a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/' accesskey='h'><img alt='Web del Instituto de Estad&iacute;stica y Cartograf&iacute;a de Andaluc&iacute;a' title='Web del Instituto de Estad&iacute;stica y Cartograf&iacute;a de Andaluc&iacute;a' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/cabecera/LogoIECAA.png'></a>\n</div>\n</div>\n<!-- fin cabecera izqda -->\n<!-- cabecera derecha -->\n<div id='cabecera_2'>\n<!-- cabecera derecha-izq -->\n<div id='cabecera_2a'>\n<!-- cabecera redes sociales -->\n<div id='redessociales'>\n<a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/blog/'><img alt='S&iacute;guenos en nuestro blog' title='S&iacute;guenos en nuestro blog' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_blogger.png'></a>\n<a href='https://www.twitter.com/IECA_Andalucia'><img alt='S&iacute;guenos en Twitter' title='S&iacute;guenos en Twitter' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_twitter.png'></a>\n<a href='https://www.facebook.com/institutodeestadisticadeandalucia'><img alt='S&iacute;guenos en Facebook' title='S&iacute;guenos en Facebook' src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_facebook.png'></a>\n</div>\n<!-- fin cabecera redes sociales -->\n</div>\n<!-- fin cabecera derecha-izq -->\n<!-- Cabecera derecha-derecha -->\n<div id='cabecera_2b'>\n<!-- cabecera menu -->\n<div id='cabecera_2b_menu' class='lateral10 bordecolor2'>\n<ul>\n<li><a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/contacto.html' accesskey='c'>Contacto</a></li>\n<li><a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/suscripcion/index.htm' accesskey='s'>Suscripci&oacute;n</a></li>\n<li><a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/calendario/index.htm' accesskey='d'>Calendario</a></li>\n<li>&nbsp;</li>\n</ul>\n</div>\n<!-- fin cabecera menu -->\n</div>\n<!-- fin Cabecera derecha-derecha -->\n</div>\n<!-- fin cabecera derecha -->\n</div>\n<!-- fin cabecera -->\n" +
+    "<!-- Camino de migas y enlaces de navegaci&oacute;n -->\n<div id='navigation'>\n<div class='lineacolor fondocolor1'>&nbsp;</div>\n<div id='menu_horizontal'>\n<!-- camino de  migas -->\n<div id='menu_horizontal_1'>\n<div id='caminomigas'>\n<img src='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/acciones/ico_aqui.png' alt='Ruta'>Est&aacute; en: <a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/'>Inicio</a> - " +
+    "<a href='https://www.juntadeandalucia.es/institutodeestadisticaycartografia/temas/index-geo.htm'>Georreferenciaci&oacute;n</a>\n" +
+    " - <a href='../index.htm'>P&aacute;gina del producto</a>            </div>\n</div>\n<!-- fin camino de  migas -->\n<!-- enlaces navegacion -->\n<div id='menu_horizontal_2'>\n<div id='botoneramenu'>\n<!-- menu desplegable -->\n",
   cssList: [
     'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/css/estiloCabecera2015.css',
     'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/css/estiloGenerico.css',
@@ -366,6 +366,8 @@ const configHeaderIECA = {
 const configGridInfo = {
   wmsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
+  infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  infoLayer: 'gridcattp_250',
   wfsLayer: 'gridcattp_250',
   zoom: 6,
   info: [
@@ -374,7 +376,7 @@ const configGridInfo = {
       style: 'stl_c011_viviendas_colectivas',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c011',
           title: 'Viviendas colectivas. Urbano',
         }
@@ -385,7 +387,7 @@ const configGridInfo = {
       style: 'stl_c012_viviendas_unifamiliares',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c012',
           title: 'Viviendas unifamiliares. Urbano',
         }
@@ -396,7 +398,7 @@ const configGridInfo = {
       style: 'stl_c013_edificiacion_rural',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c013',
           title: 'Edificación rural',
         }
@@ -407,7 +409,7 @@ const configGridInfo = {
       style: 'stl_c01G_garages_viviendas',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c01g',
           title: 'Garajes viviendas',
         }
@@ -418,7 +420,7 @@ const configGridInfo = {
       style: 'stl_c022_otros_garajes',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c022',
           title: 'Otros garajes y aparcamientos',
         }
@@ -429,7 +431,7 @@ const configGridInfo = {
       style: 'stl_c02_industrial',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c02',
           title: 'Industrial',
         }
@@ -440,7 +442,7 @@ const configGridInfo = {
       style: 'stl_c03_oficinas',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c03',
           title: 'Oficinas',
         }
@@ -451,7 +453,7 @@ const configGridInfo = {
       style: 'stl_c04_comercio',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c04',
           title: 'Comercio',
         }
@@ -462,7 +464,7 @@ const configGridInfo = {
       style: 'stl_c05_Deportes',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c05',
           title: 'Deportes',
         }
@@ -473,7 +475,7 @@ const configGridInfo = {
       style: 'stl_c05P_piscinas',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c05p',
           title: 'Piscinas',
         }
@@ -484,7 +486,7 @@ const configGridInfo = {
       style: 'stl_c06_espectaculos',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c06',
           title: 'Espectáculos',
         }
@@ -495,7 +497,7 @@ const configGridInfo = {
       style: 'stl_c07_hosteleria_ocio',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c07',
           title: 'Hostelería y Ocio',
         }
@@ -506,7 +508,7 @@ const configGridInfo = {
       style: 'stl_c08_sanitarios_beneficos',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c08',
           title: 'Sanitarios, asistenciales y benéficos',
         }
@@ -517,7 +519,7 @@ const configGridInfo = {
       style: 'stl_c09_culturales',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c09',
           title: 'Culturales',
         }
@@ -528,7 +530,7 @@ const configGridInfo = {
       style: 'stl_c093_religioso',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c093',
           title: 'Religiosos',
         }
@@ -539,7 +541,7 @@ const configGridInfo = {
       style: 'stl_c10_singulares',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c10',
           title: 'Singulares',
         }
@@ -550,7 +552,7 @@ const configGridInfo = {
       style: 'stl_c1034_golf',
       fields: [
         {
-          minValue: 0,
+          minValue: 1,
           field: 'c1034',
           title: 'Campos de Golf',
         }
@@ -699,8 +701,14 @@ const configGridPoblacion = {
 
 const configGridInfoPoblacion = {
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2019/wfs?',
+  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
+  infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wms?',
+  //infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil/wms?',
+  //infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
   wfsLayer: 'gridp_250',
+  infoLayer: 'gridp_250',
+  //infoLayer: 'gridafil_250',
+  //infoLayer: 'gridpob_250',
   zoom: 6,
   info: [
     {
@@ -708,34 +716,34 @@ const configGridInfoPoblacion = {
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'esp',
           title: 'España',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ue15',
           title: 'Unión Europea (15)',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'mag',
           title: 'Magreb',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ams',
           title: 'América del Sur',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'otr',
           title: 'Otras',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'pob_tot',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     },
@@ -744,19 +752,19 @@ const configGridInfoPoblacion = {
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_a',
           title: 'Cuenta ajena',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_p',
           title: 'Cuenta propia',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     }
@@ -765,8 +773,10 @@ const configGridInfoPoblacion = {
 
 const configGridInfoPoblacion2 = [{
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2019/wfs?',
+  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
+  infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
   wfsLayer: 'gridp_250',
+  infoLayer: 'gridpob_250',
   zoom: 6,
   info: [
     {
@@ -774,34 +784,34 @@ const configGridInfoPoblacion2 = [{
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'esp',
           title: 'España',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ue15',
           title: 'Unión Europea (15)',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'mag',
           title: 'Magreb',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ams',
           title: 'América del Sur',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'otr',
           title: 'Otras',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'pob_tot',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     },
@@ -810,19 +820,19 @@ const configGridInfoPoblacion2 = [{
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_a',
           title: 'Cuenta ajena',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_p',
           title: 'Cuenta propia',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     }
@@ -831,7 +841,9 @@ const configGridInfoPoblacion2 = [{
 {
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2018/wfs?',
+  infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
   wfsLayer: 'gridp_250',
+  infoLayer: 'gridpob_250',
   zoom: 6,
   info: [
     {
@@ -839,34 +851,34 @@ const configGridInfoPoblacion2 = [{
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'esp',
           title: 'España',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ue15',
           title: 'Unión Europea (15)',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'mag',
           title: 'Magreb',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ams',
           title: 'América del Sur',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'otr',
           title: 'Otras',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'pob_tot',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     },
@@ -875,19 +887,19 @@ const configGridInfoPoblacion2 = [{
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_a',
           title: 'Cuenta ajena',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_p',
           title: 'Cuenta propia',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     }
@@ -896,7 +908,9 @@ const configGridInfoPoblacion2 = [{
 {
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2017/wfs?',
+  infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
   wfsLayer: 'gridp_250',
+  infoLayer: 'gridpob_250',
   zoom: 6,
   info: [
     {
@@ -904,34 +918,34 @@ const configGridInfoPoblacion2 = [{
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'esp',
           title: 'España',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ue15',
           title: 'Unión Europea (15)',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'mag',
           title: 'Magreb',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'ams',
           title: 'América del Sur',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'otr',
           title: 'Otras',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'pob_tot',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     },
@@ -940,19 +954,19 @@ const configGridInfoPoblacion2 = [{
       style: '',
       fields: [
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_a',
           title: 'Cuenta ajena',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss_p',
           title: 'Cuenta propia',
         },
         {
-          minValue: 0,
+          minValue: -1,
           field: 'afil_ss',
-          title: 'Total',
+          title: 'TOTAL',
         }
       ]
     }
@@ -976,6 +990,7 @@ map.addPlugin(mapheader);
 
 const mp = new Gridinfo(configGridInfo);
 //const mp = new Gridinfo(configGridInfoPoblacion);
+//const mp = new Gridinfo(configGridInfoPoblacion2);
 map.addPlugin(mp);
 
 // Control carga Plugins
