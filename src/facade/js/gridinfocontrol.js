@@ -200,7 +200,7 @@ export default class GridinfoControl extends M.Control {
           this.bbox = this.map_.getBbox();
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
           this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
-          this.showLoader();
+          this.showLoader('Cargando datos');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
 
@@ -221,7 +221,7 @@ export default class GridinfoControl extends M.Control {
         this.bbox = this.map_.getBbox();
         this.bboxFilter = this.setCQLBboxFiler(this.bbox)
         this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
-        this.showLoader();
+        this.showLoader('Cargando datos');
         this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
 
       }
@@ -243,26 +243,37 @@ export default class GridinfoControl extends M.Control {
         let mapBbox = this.map_.getBbox();
         let imageSize = this.map_.getImpl().map_.getSize()
         let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
+        let myContent = this.createLoader('Consultando Información');
+        let featureTabOpts = {
+          icon: 'g-cartografia-pin',
+          title: 'Información',
+          content: myContent.innerHTML,
+        };
+        this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
+        this.popupInfo.addTab(featureTabOpts);
+        this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
+        let popupContent = document.getElementsByClassName('m-body')[0];
+        let closePopupButton = document.getElementsByClassName('m-popup-closer')[0]
+        closePopupButton.addEventListener('click', () => {
+          this.getInfoFeature = null;
+          this.udpateStyle(this.vectorLayer.getFeatures())
+          this.getInfoQuery = false;
+        })
+
         M.remote.get(getInfoUrl).then((res) => {
-          let myContent = res.text
-          if (myContent.search('<table ') != -1) {
-            let featureTabOpts = {
-              icon: 'g-cartografia-pin',
-              title: 'Información',
-              content: myContent,
-            };
-            this.popupInfo = new M.Popup({ panMapIfOutOfView: true });
-            this.popupInfo.addTab(featureTabOpts);
-            this.map_.addPopup(this.popupInfo, [mapClick[0], mapClick[1]]);
-            let closePopupButton = document.getElementsByClassName('m-popup-closer')[0]
-            closePopupButton.addEventListener('click', () => {
-              this.getInfoFeature = null;
-              this.udpateStyle(this.vectorLayer.getFeatures())
-              this.getInfoQuery = false;
-            })
+          let response = res.text
+          if (response.search('<table ') != -1) {
+            popupContent.innerHTML = response;           
           } else {
+            popupContent.innerHTML = '<div class="info-msg">No ha seleccionado una celdilla</div>';
             this.getInfoFeature = null;
             this.getInfoQuery = false;
+            setTimeout(()=>{
+              if(this.popupInfo){
+                this.map_.removePopup(this.popupInfo)
+              }
+            },500)
+            
           }
           this.udpateStyle(this.vectorLayer.getFeatures())
         })
@@ -387,7 +398,6 @@ export default class GridinfoControl extends M.Control {
     setTimeout(() => {
       this.map_.addPopup(this.popup, [coordenada_X, coordenada_Y]);
     }, 200);
-
   }
 
   getPolygonCenter(geometry) {
@@ -463,9 +473,7 @@ export default class GridinfoControl extends M.Control {
     }
   }
 
-  showLoader() {
-    const mapeaContainer = document.querySelector('div.m-mapea-container');
-
+  createLoader(msg){
     let loader = document.createElement('div');
     loader.setAttribute('id', 'loader');
     loader.setAttribute('class', 'loader');
@@ -474,10 +482,16 @@ export default class GridinfoControl extends M.Control {
     
     let textLoader = document.createElement('div')
     textLoader.setAttribute('class', 'loader-text')
-    let text = document.createTextNode("Cargando Datos");
+    let text = document.createTextNode(msg);
     textLoader.appendChild(text)
     loader.appendChild(spinner);
     loader.appendChild(textLoader);
+    return loader
+  }
+
+  showLoader(msg) {
+    let loader = this.createLoader(msg)
+    const mapeaContainer = document.querySelector('div.m-mapea-container');
     mapeaContainer.appendChild(loader);
   }
 
