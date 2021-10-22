@@ -598,6 +598,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c011',
           title: 'Viviendas colectivas. Urbano',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -611,6 +616,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c012',
           title: 'Viviendas unifamiliares. Urbano',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -624,6 +634,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c013',
           title: 'Edificación rural',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -637,6 +652,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c01g',
           title: 'Garajes viviendas',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -650,6 +670,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c022',
           title: 'Otros garajes y aparcamientos',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -663,6 +688,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c02',
           title: 'Industrial',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -676,6 +706,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c03',
           title: 'Oficinas',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -689,6 +724,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c04',
           title: 'Comercio',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -702,6 +742,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c05',
           title: 'Deportes',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -715,6 +760,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c05p',
           title: 'Piscinas',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -728,6 +778,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c06',
           title: 'Espectáculos',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -741,6 +796,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c07',
           title: 'Hostelería y Ocio',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -754,6 +814,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c08',
           title: 'Sanitarios, asistenciales y benéficos',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -767,6 +832,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c09',
           title: 'Culturales',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -780,6 +850,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c093',
           title: 'Religiosos',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -793,6 +868,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c10',
           title: 'Singulares',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     },
@@ -806,6 +886,11 @@ const configGridInfoTipologiasConstructivas = [{
           minValue: 1,
           field: 'c1034',
           title: 'Campos de Golf',
+        },
+        {
+          minValue: 1,
+          field: 'ctotal',
+          title: 'TOTAL',
         }
       ]
     }
@@ -1220,8 +1305,8 @@ const configGridInfoPoblacion = [{
 ]
 
 
-//const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
-const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
+const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
+//const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
 const baseLayerSelector = new M.plugin.Simplebaselayerselector(configSimpleBaseLayerSelector);
 const simpleLegend = new M.plugin.Simplelegend()
 const mapheader = new M.plugin.Mapheader(configHeaderIECA);
@@ -1233,8 +1318,8 @@ map.addPlugin(simpleLegend);
 map.addPlugin(mapfooter);
 map.addPlugin(mapheader);
 
-//const mp = new Gridinfo(configGridInfoTipologiasConstructivas);
-const mp = new Gridinfo(configGridInfoPoblacion);
+const mp = new Gridinfo(configGridInfoTipologiasConstructivas);
+//const mp = new Gridinfo(configGridInfoPoblacion);
 map.addPlugin(mp);
 
 // Control carga Plugins
