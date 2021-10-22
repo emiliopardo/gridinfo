@@ -346,7 +346,7 @@ export default class GridinfoControl extends M.Control {
     return this.infoUrl
   }
 
-  getInfoLayer(layer){
+  getInfoLayer(layer) {
     this.infoLayer = null;
     if (this.isGridLayer(layer)) {
       this.infoLayer = this.configFields.infoLayer;
@@ -470,16 +470,35 @@ export default class GridinfoControl extends M.Control {
   }
 
   setInfoTable(feature) {
+    let arrayFields = new Array()
+    let total = null;
     let table = '<table class="info-table">'
     for (let index = 0; index < this.gridInfoFields.length; index++) {
       const element = this.gridInfoFields[index];
-      let value = feature.getAttribute(element.field)
-
-      if (feature.getAttribute(element.field) == -1) {
-        value = 'Secreto estadístico'
+      if (element.title == 'TOTAL') {
+        total = feature.getAttribute(element.field);
+      } else if (feature.getAttribute(element.field) != 0) {
+        arrayFields.push({ title: element.title, value: feature.getAttribute(element.field) })
       }
-      table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + value + '</td></tr>';
     }
+    for (let index = 0; index < arrayFields.length; index++) {
+      const element = arrayFields[index];
+      if (element.value == -1) {
+        table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">Secreto estadístico</td></tr>';
+      } else {
+        if(total){
+        let value = ((element.value * 100) / total).toFixed(2) + '%';
+        table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + value + '</td></tr>';
+      }else{
+        table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + element.value + '</td></tr>';
+      }
+      }
+    }
+    
+    if(total){
+      table += '<tr><td class="info-popup-key">TOTAL</td><td class="info-popup-value">' + total.toFixed(2) + '</td></tr>';
+    }
+
     table += '</table>'
     return table
   }
