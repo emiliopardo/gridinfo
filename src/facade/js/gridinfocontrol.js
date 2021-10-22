@@ -204,7 +204,6 @@ export default class GridinfoControl extends M.Control {
           this.bbox = this.map_.getBbox();
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
           this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.wfsLayer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
-          //console.log(this.url);
           this.showLoader('Cargando datos');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
@@ -242,12 +241,12 @@ export default class GridinfoControl extends M.Control {
       if (this.wmsLayer) {
         let mapClick = event.coord;
         let imageClick = event.pixel;
-        let layerUrl = this.infoUrl;
-        let layerName = this.infoLayer;
+        let infoUrl = this.getInfoUrl(this.wmsLayer);
+        let infoLayer = this.getInfoLayer(this.wmsLayer);
         let layerStyle = this.wmsLayer.options.styles;
         let mapBbox = this.map_.getBbox();
         let imageSize = this.map_.getImpl().map_.getSize()
-        let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
+        let getInfoUrl = infoUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + infoLayer + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + infoLayer + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
         let myContent = this.createLoader('Consultando Información');
         let featureTabOpts = {
           icon: 'g-cartografia-pin',
@@ -320,13 +319,11 @@ export default class GridinfoControl extends M.Control {
             this.configFields = element;
             this.wmsLayer = layer;
             this.wfsUrl = this.info.wfsUrl;
-            this.infoUrl = this.info.infoUrl;
             this.zoom = this.info.zoom;
             this.wfsLayer = this.info.wfsLayer
             this.infoLayer = this.info.infoLayer;
             result = true
           }
-
         }
       }
     }
@@ -335,9 +332,27 @@ export default class GridinfoControl extends M.Control {
   }
 
   setGridFieldInfo(selectedGrid) {
+
     let gridInfoFields = this.configFields.fields
 
     return gridInfoFields
+  }
+
+  getInfoUrl(layer) {
+    this.infoUrl = null;
+    if (this.isGridLayer(layer)) {
+      this.infoUrl = this.configFields.infoUrl;
+    }
+    return this.infoUrl
+  }
+
+  getInfoLayer(layer){
+    this.infoLayer = null;
+    if (this.isGridLayer(layer)) {
+      this.infoLayer = this.configFields.infoLayer;
+    }
+    return this.infoLayer
+
   }
 
   incrementalLoad(vectorLayer, url, start, batchsize, totalFeatures, limit) {
@@ -386,7 +401,6 @@ export default class GridinfoControl extends M.Control {
   }
 
   setInfoPopUp(feature) {
-
     let gridCenter = this.getPolygonCenter(feature.getGeometry())
     let coordenada_X = gridCenter[0];
     let coordenada_Y = gridCenter[1];
