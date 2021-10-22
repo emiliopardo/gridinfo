@@ -27,8 +27,10 @@ export default class GridinfoControl extends M.Control {
     this.wfsUrl = this.config.wfsUrl;
     this.wmsUrl = this.config.wmsUrl;
     this.infoUrl = this.config.infoUrl;
-    this.layer = this.config.wfsLayer;
+    this.wfslayer = this.config.wfsLayer;
     this.infoLayer = this.config.infoLayer;
+    this.wmsLayer = null;
+    this.configFields = null;
     this.zoom = this.config.zoom;
     this.info = this.config.info;
     this.url = null;
@@ -201,7 +203,8 @@ export default class GridinfoControl extends M.Control {
           this.propertyNames = this.setPropertyNames(this.gridInfoFields);
           this.bbox = this.map_.getBbox();
           this.bboxFilter = this.setCQLBboxFiler(this.bbox)
-          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
+          this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.wfsLayer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
+          //console.log(this.url);
           this.showLoader('Cargando datos');
           this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
         }
@@ -222,7 +225,7 @@ export default class GridinfoControl extends M.Control {
         this.propertyNames = this.setPropertyNames(this.gridInfoFields);
         this.bbox = this.map_.getBbox();
         this.bboxFilter = this.setCQLBboxFiler(this.bbox)
-        this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.layer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
+        this.url = encodeURI(this.wfsUrl + 'service=WFS&version=2.0.0&request=GetFeature&typeName=' + this.wfsLayer + '&CQL_FILTER=' + this.fieldsFilter + ' AND ' + this.bboxFilter + '&propertyName=' + this.propertyNames + '&outputFormat=application/json');
         this.showLoader('Cargando datos');
         this.incrementalLoad(this.vectorLayer, this.url, this.start, this.batchsize, this.totalFeatures, this.limit);
 
@@ -230,18 +233,18 @@ export default class GridinfoControl extends M.Control {
     })
 
     this.map_.on(M.evt.CLICK, (event) => {
-      let layer = this.getLoadedLayer(this.map_.getLayers());  
+      this.wmsLayer = this.getLoadedLayer(this.map_.getLayers());
       if (this.selectedFeature) {
         this.selectedFeature.setStyle(this.polygonStyle)
         this.getInfoQuery = true;
         this.udpateStyle(this.vectorLayer.getFeatures())
       }
-      if (layer) {
+      if (this.wmsLayer) {
         let mapClick = event.coord;
         let imageClick = event.pixel;
         let layerUrl = this.infoUrl;
         let layerName = this.infoLayer;
-        let layerStyle = layer.options.styles;
+        let layerStyle = this.wmsLayer.options.styles;
         let mapBbox = this.map_.getBbox();
         let imageSize = this.map_.getImpl().map_.getSize()
         let getInfoUrl = layerUrl + 'request=GetFeatureInfo&service=WMS&version=1.1.1&layers=' + layerName + '&styles=' + layerStyle + '&srs=EPSG:25830&format=image/png&bbox=' + mapBbox.x.min + ',' + mapBbox.y.min + ',' + mapBbox.x.max + ',' + mapBbox.y.max + '&width=' + imageSize[0] + '&height=' + imageSize[1] + '&query_layers=' + layerName + '&info_format=text/html&feature_count=1&x=' + imageClick[0] + '&y=' + imageClick[1] + '&exceptions=application/vnd.ogc.se_xml';
@@ -299,7 +302,6 @@ export default class GridinfoControl extends M.Control {
     for (let index = 0; index < layers.length; index++) {
       const layer = layers[index];
       if (layer instanceof M.layer.WMS && this.isGridLayer(layer)) {
-        //selectedGrid = layer.options.styles
         selectedGrid = layer
       }
     }
@@ -308,29 +310,33 @@ export default class GridinfoControl extends M.Control {
 
   isGridLayer(layer) {
     let result = false;
-    for (let index = 0; index < this.info.length; index++) {
-      const element = this.info[index];
-      if (layer.getImpl().url == this.wmsUrl && layer.name == element.wmsLayer && element.style == layer.options.styles) {
-        result = true
+    for (let index = 0; index < this.config.length; index++) {
+      this.info = this.config[index];
+      if (layer.getImpl().url == this.info.wmsUrl) {
+        let info = this.info.info
+        for (let index = 0; index < info.length; index++) {
+          const element = info[index];
+          if (layer.name == element.wmsLayer && element.style == layer.options.styles) {
+            this.configFields = element;
+            this.wmsLayer = layer;
+            this.wfsUrl = this.info.wfsUrl;
+            this.infoUrl = this.info.infoUrl;
+            this.zoom = this.info.zoom;
+            this.wfsLayer = this.info.wfsLayer
+            this.infoLayer = this.info.infoLayer;
+            result = true
+          }
+
+        }
       }
     }
+
     return result;
   }
 
   setGridFieldInfo(selectedGrid) {
-    let find = false
-    let gridInfoFields = null
-    do {
-      for (let index = 0; index < this.info.length; index++) {
-        const element = this.info[index];
-        if (element.style == selectedGrid.options.styles && element.wmsLayer == selectedGrid.name) {
-          gridInfoFields = element.fields
-        }
-        if (index == this.info.length - 1) {
-          find = true;
-        }
-      }
-    } while (!find);
+    let gridInfoFields = this.configFields.fields
+
     return gridInfoFields
   }
 
@@ -455,7 +461,7 @@ export default class GridinfoControl extends M.Control {
       const element = this.gridInfoFields[index];
       let value = feature.getAttribute(element.field)
 
-      if(feature.getAttribute(element.field)==-1) {
+      if (feature.getAttribute(element.field) == -1) {
         value = 'Secreto estadístico'
       }
       table += '<tr><td class="info-popup-key">' + element.title + '</td><td class="info-popup-value">' + value + '</td></tr>';

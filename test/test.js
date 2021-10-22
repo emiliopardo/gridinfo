@@ -307,7 +307,7 @@ const map = M.map({
 map.addControls(['ScaleLine', 'Mouse', 'panzoombar']);
 
 // configuración plugin inputSelectAddLayer
-const configTipologiasConstrucctivas = {
+const configTipologiasConstructivas = {
   title: 'Tipologías constructivas de catastro en malla estadística',
   label: 'Tipologías constructivas de catastro en malla estadística',
   group: false,
@@ -363,7 +363,7 @@ const configHeaderIECA = {
 
 //config plugin gridinfo
 
-const configGridInfo = {
+const configGridInfoTipologiasConstrucctivas = [{
   wmsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
   infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
@@ -559,7 +559,7 @@ const configGridInfo = {
       ]
     }
   ]
-}
+}]
 
 
 //NACIONALIDAD
@@ -699,79 +699,7 @@ const configGridPoblacion = {
 }
 
 
-const configGridInfoPoblacion = {
-  wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
-  infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wms?',
-  //infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil/wms?',
-  //infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
-  wfsLayer: 'gridp_250',
-  infoLayer: 'gridp_250',
-  //infoLayer: 'gridafil_250',
-  //infoLayer: 'gridpob_250',
-  zoom: 6,
-  info: [
-    {
-      wmsLayer: 'nacionalidad_2019',
-      style: '',
-      fields: [
-        {
-          minValue: -1,
-          field: 'esp',
-          title: 'España',
-        },
-        {
-          minValue: -1,
-          field: 'ue15',
-          title: 'Unión Europea (15)',
-        },
-        {
-          minValue: -1,
-          field: 'mag',
-          title: 'Magreb',
-        },
-        {
-          minValue: -1,
-          field: 'ams',
-          title: 'América del Sur',
-        },
-        {
-          minValue: -1,
-          field: 'otr',
-          title: 'Otras',
-        },
-        {
-          minValue: -1,
-          field: 'pob_tot',
-          title: 'TOTAL',
-        }
-      ]
-    },
-    {
-      wmsLayer: 'segsoc_rellab_2019',
-      style: '',
-      fields: [
-        {
-          minValue: -1,
-          field: 'afil_ss_a',
-          title: 'Cuenta ajena',
-        },
-        {
-          minValue: -1,
-          field: 'afil_ss_p',
-          title: 'Cuenta propia',
-        },
-        {
-          minValue: -1,
-          field: 'afil_ss',
-          title: 'TOTAL',
-        }
-      ]
-    }
-  ]
-}
-
-const configGridInfoPoblacion2 = [{
+const configGridInfoPoblacion = [{
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
   infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
@@ -842,8 +770,8 @@ const configGridInfoPoblacion2 = [{
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2018/wfs?',
   infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
-  wfsLayer: 'gridp_250',
-  infoLayer: 'gridpob_250',
+  wfsLayer: 'gridp18_250',
+  infoLayer: 'gridpob18_250',
   zoom: 6,
   info: [
     {
@@ -909,8 +837,8 @@ const configGridInfoPoblacion2 = [{
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
   wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2017/wfs?',
   infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
-  wfsLayer: 'gridp_250',
-  infoLayer: 'gridpob_250',
+  wfsLayer: 'gridp17_250',
+  infoLayer: 'gridpob17_250',
   zoom: 6,
   info: [
     {
@@ -975,8 +903,8 @@ const configGridInfoPoblacion2 = [{
 ]
 
 
-const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstrucctivas);
-//const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
+//const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
+const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
 const baseLayerSelector = new M.plugin.Simplebaselayerselector(configSimpleBaseLayerSelector);
 const simpleLegend = new M.plugin.Simplelegend()
 const mapheader = new M.plugin.Mapheader(configHeaderIECA);
@@ -988,9 +916,8 @@ map.addPlugin(simpleLegend);
 map.addPlugin(mapfooter);
 map.addPlugin(mapheader);
 
-const mp = new Gridinfo(configGridInfo);
-//const mp = new Gridinfo(configGridInfoPoblacion);
-//const mp = new Gridinfo(configGridInfoPoblacion2);
+//const mp = new Gridinfo(configGridInfoTipologiasConstrucctivas);
+const mp = new Gridinfo(configGridInfoPoblacion);
 map.addPlugin(mp);
 
 // Control carga Plugins
