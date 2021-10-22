@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -26,26 +25,19 @@
     </style>
 
 </head>
-
-<body>
-    <div id="map" class="container"></div>
-    <script type="text/javascript" src="https://mapea4-sigc.juntadeandalucia.es/js/mapea-6.0.0.ol.min.js"></script>
-    <script type="text/javascript" src="https://mapea4-sigc.juntadeandalucia.es/js/configuration-6.0.0.js"></script>
-    <script type="text/javascript"
-        src="https://emiliopardo.github.io/inputselectaddlayer/inputselectaddlayer.ol.min.js"></script>
-    <script type="text/javascript"
-        src="https://emiliopardo.github.io/simplebaselayerselector/simplebaselayerselector.ol.min.js"></script>
-    <script type="text/javascript" src="https://emiliopardo.github.io/simplelegend/simplelegend.ol.min.js"></script>
-    <script type="text/javascript" src="https://emiliopardo.github.io/mapfooter/mapfooter.ol.min.js"></script>
-    <script type="text/javascript" src="https://emiliopardo.github.io/mapheader/mapheader.ol.min.js"></script>
-    <script type="text/javascript" src="https://emiliopardo.github.io/gridinfo/gridinfo.ol.min.js"></script>
-</body>
-
-</html>
-
 <body>
     <div id="map"></div>
 </body>
+<script type="text/javascript" src="https://mapea4-sigc.juntadeandalucia.es/js/mapea-6.0.0.ol.min.js"></script>
+<script type="text/javascript" src="https://mapea4-sigc.juntadeandalucia.es/js/configuration-6.0.0.js"></script>
+<script type="text/javascript"
+    src="https://emiliopardo.github.io/inputselectaddlayer/inputselectaddlayer.ol.min.js"></script>
+<script type="text/javascript"
+    src="https://emiliopardo.github.io/simplebaselayerselector/simplebaselayerselector.ol.min.js"></script>
+<script type="text/javascript" src="https://emiliopardo.github.io/simplelegend/simplelegend.ol.min.js"></script>
+<script type="text/javascript" src="https://emiliopardo.github.io/mapfooter/mapfooter.ol.min.js"></script>
+<script type="text/javascript" src="https://emiliopardo.github.io/mapheader/mapheader.ol.min.js"></script>
+<script type="text/javascript" src="https://emiliopardo.github.io/gridinfo/gridinfo.ol.min.js"></script>
 <script type="text/javascript">
     const ortofoto2016_color = new M.layer.WMS({
         url: 'https://www.ideandalucia.es/wms/ortofoto2016?',
@@ -518,7 +510,6 @@ const configGridInfoPoblacion = [{
 }
 ]
 
-
     const baseLayerSelector = new M.plugin.Simplebaselayerselector(configSimpleBaseLayerSelector);
     const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
     const simpleLegend = new M.plugin.Simplelegend()
@@ -554,5 +545,4 @@ const configGridInfoPoblacion = [{
         console.log('se cargo el plugin gridinfo')
     })
 </script>
-
 </html>
