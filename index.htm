@@ -40,9 +40,7 @@
     <script type="text/javascript" src="https://emiliopardo.github.io/mapheader/mapheader.ol.min.js"></script>
     <script type="text/javascript" src="https://emiliopardo.github.io/gridinfo/gridinfo.ol.min.js"></script>
 </body>
-
 </html>
-
 <body>
     <div id="map"></div>
 </body>
@@ -333,81 +331,7 @@
     })
 
     campo_golf.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c1034_golf')
-
-    //NACIONALIDAD
-
-    const nacionalidad_2019 = new M.layer.WMS({
-        url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        name: 'nacionalidad_2019',
-        legend: 'Población por nacionalidad',
-        transparent: true,
-        tiled: true
-    }, {
-        styles: ''
-    })
-
-    nacionalidad_2019.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/nacionalidad.png')
-
-    const nacionalidad_2018 = new M.layer.WMS({
-        url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        name: 'nacionalidad_2018',
-        legend: 'Población por nacionalidad',
-        transparent: true,
-        tiled: true
-    }, {
-        styles: ''
-    })
-
-    nacionalidad_2018.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/nacionalidad.png')
-
-    const nacionalidad_2017 = new M.layer.WMS({
-        url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        name: 'nacionalidad_2017',
-        legend: 'Población por nacionalidad',
-        transparent: true,
-        tiled: true
-    }, {
-        styles: ''
-    })
-
-    nacionalidad_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/nacionalidad.png')
-
-    // Seguridad social   
-    const segsoc_rellab_2019 = new M.layer.WMS({
-        url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        name: 'segsoc_rellab_2019',
-        legend: 'Afiliación según relación Laboral',
-        transparent: true,
-        tiled: true
-    }, {
-        styles: ''
-    })
-
-    segsoc_rellab_2019.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/segsoc_rellab.png')
-
-    const segsoc_rellab_2018 = new M.layer.WMS({
-        url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        name: 'segsoc_rellab_2018',
-        legend: 'Afiliación según relación Laboral',
-        transparent: true,
-        tiled: true
-    }, {
-        styles: ''
-    })
-
-    segsoc_rellab_2018.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/segsoc_rellab.png')
-
-    const segsoc_rellab_2017 = new M.layer.WMS({
-        url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        name: 'segsoc_rellab_2017',
-        legend: 'Afiliación según relación Laboral',
-        transparent: true,
-        tiled: true
-    }, {
-        styles: ''
-    })
-
-    segsoc_rellab_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/segsoc_rellab.png')
+   
     // definición Mapea
     const map = M.map({
         container: 'map',
@@ -425,67 +349,6 @@
     map.addControls(['ScaleLine', 'Mouse', 'panzoombar']);
 
     // configuración plugin inputSelectAddLayer
-
-    const configGridPoblacion = {
-        title: 'Distribución Espacial de la Población en Andalucía',
-        label: 'Año',
-        group: true,
-        data: [
-            {
-                name: 'Año 2017',
-                layerGroups: [
-                    {
-                        group: 'Población',
-                        layers: [
-                            nacionalidad_2017
-                        ]
-                    }
-                    ,
-                    {
-                        group: 'Afiliación a la Seguridad Social',
-                        layers: [
-                            segsoc_rellab_2017
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'Año 2018',
-                layerGroups: [
-                    {
-                        group: 'Población',
-                        layers: [
-                            nacionalidad_2018
-                        ]
-                    },
-                    {
-                        group: 'Afiliación a la Seguridad Social',
-                        layers: [
-                            segsoc_rellab_2018
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'Año 2019',
-                layerGroups: [
-                    {
-                        group: 'Población',
-                        layers: [
-                            nacionalidad_2019
-                        ]
-                    },
-                    {
-                        group: 'Afiliación a la Seguridad Social',
-                        layers: [
-                            segsoc_rellab_2019
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-
 
     const configTipologiasConstrucctivas = {
         title: 'Tipologías constructivas de catastro en malla estadística',
@@ -543,79 +406,8 @@
 
     //config plugin gridinfo
 
-    const configGridInfoPoblacion = {
-        wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-        wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
-        infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wms?',
-        //infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil/wms?',
-        //infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
-        wfsLayer: 'gridp_250',
-        infoLayer: 'gridp_250',
-        //infoLayer: 'gridafil_250',
-        //infoLayer: 'gridpob_250',
-        zoom: 6,
-        info: [
-            {
-                wmsLayer: 'nacionalidad_2019',
-                style: '',
-                fields: [
-                    {
-                        minValue: -1,
-                        field: 'esp',
-                        title: 'España',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'ue15',
-                        title: 'Unión Europea (15)',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'mag',
-                        title: 'Magreb',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'ams',
-                        title: 'América del Sur',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'otr',
-                        title: 'Otras',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'pob_tot',
-                        title: 'TOTAL',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'segsoc_rellab_2019',
-                style: '',
-                fields: [
-                    {
-                        minValue: -1,
-                        field: 'afil_ss_a',
-                        title: 'Cuenta ajena',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'afil_ss_p',
-                        title: 'Cuenta propia',
-                    },
-                    {
-                        minValue: -1,
-                        field: 'afil_ss',
-                        title: 'TOTAL',
-                    }
-                ]
-            }
-        ]
-    }
-
-    const configGridInfo = {
+    
+    const configGridInfoTipologiasConstructivas = [{
         wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
         wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
         infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
@@ -811,15 +603,15 @@
                 ]
             }
         ]
-    }
+    }]
 
 
     const baseLayerSelector = new M.plugin.Simplebaselayerselector(configSimpleBaseLayerSelector);
-    const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstrucctivas);
+    const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
     const simpleLegend = new M.plugin.Simplelegend()
     const mapheader = new M.plugin.Mapheader(configHeaderIECA);
     const mapfooter = new M.plugin.Mapfooter(configFooterIECA);
-    const gridinfo = new M.plugin.Gridinfo(configGridInfo);
+    const gridinfo = new M.plugin.Gridinfo(configGridInfoTipologiasConstructivas);
 
     map.addPlugin(baseLayerSelector);
     map.addPlugin(inputSelectAddLayer);
