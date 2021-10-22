@@ -290,9 +290,87 @@ const campo_golf = new M.layer.WMS({
 campo_golf.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c1034_golf')
 
 
+//POBLACION POR GRUPOS DE EDAD
+
+const edad_2019 = new M.layer.WMS({
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+  name: 'edad_2019',
+  legend: 'Población por grupos de edad',
+  transparent: true,
+  tiled: true
+}, {
+  styles: ''
+})
+
+edad_2019.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/edad.png')
+
+const edad_2018 = new M.layer.WMS({
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+  name: 'edad_2018',
+  legend: 'Población por grupos de edad',
+  transparent: true,
+  tiled: true
+}, {
+  styles: ''
+})
+
+edad_2018.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/edad.png')
 
 
-//NACIONALIDAD
+const edad_2017 = new M.layer.WMS({
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+  name: 'edad_2017',
+  legend: 'Población por grupos de edad',
+  transparent: true,
+  tiled: true
+}, {
+  styles: ''
+})
+
+edad_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/edad.png')
+
+// POBLACION POR LUGAR DE NACIMIENTO
+
+const pob_lnac_2019 = new M.layer.WMS({
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+  name: 'pob_lnac_2019',
+  legend: 'Población por lugar de nacimiento',
+  transparent: true,
+  tiled: true
+}, {
+  styles: ''
+})
+
+pob_lnac_2019.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/pob_lnac.png')
+
+
+const pob_lnac_2018 = new M.layer.WMS({
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+  name: 'pob_lnac_2018',
+  legend: 'Población por lugar de nacimiento',
+  transparent: true,
+  tiled: true
+}, {
+  styles: ''
+})
+
+pob_lnac_2018.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/pob_lnac.png')
+
+
+const pob_lnac_2017 = new M.layer.WMS({
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+  name: 'pob_lnac_2017',
+  legend: 'Población por lugar de nacimiento',
+  transparent: true,
+  tiled: true
+}, {
+  styles: ''
+})
+
+pob_lnac_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/pob_lnac.png')
+
+
+//POBLACION POR GRUPOS DE NACIONALIDAD
 
 const nacionalidad_2019 = new M.layer.WMS({
   url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
@@ -330,7 +408,7 @@ const nacionalidad_2017 = new M.layer.WMS({
 
 nacionalidad_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/nacionalidad.png')
 
-// Seguridad social   
+// AFILIACION A LA SEGURIDAD SOCIAL
 const segsoc_rellab_2019 = new M.layer.WMS({
   url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
   name: 'segsoc_rellab_2019',
@@ -419,19 +497,20 @@ const configGridPoblacion = {
   group: true,
   data: [
     {
-      name: 'Año 2017',
+      name: 'Año 2019',
       layerGroups: [
         {
           group: 'Población',
           layers: [
-            nacionalidad_2017
+            edad_2019,
+            pob_lnac_2019,
+            nacionalidad_2019
           ]
-        }
-        ,
+        },
         {
           group: 'Afiliación a la Seguridad Social',
           layers: [
-            segsoc_rellab_2017
+            segsoc_rellab_2019
           ]
         }
       ]
@@ -442,6 +521,8 @@ const configGridPoblacion = {
         {
           group: 'Población',
           layers: [
+            edad_2018,
+            pob_lnac_2018,
             nacionalidad_2018
           ]
         },
@@ -452,20 +533,22 @@ const configGridPoblacion = {
           ]
         }
       ]
-    },
-    {
-      name: 'Año 2019',
+    },{
+      name: 'Año 2017',
       layerGroups: [
         {
           group: 'Población',
           layers: [
-            nacionalidad_2019
+            edad_2017,
+            pob_lnac_2017,
+            nacionalidad_2017
           ]
-        },
+        }
+        ,
         {
           group: 'Afiliación a la Seguridad Social',
           layers: [
-            segsoc_rellab_2019
+            segsoc_rellab_2017
           ]
         }
       ]
@@ -777,6 +860,71 @@ const configGridInfoPoblacion = [{
       ]
     },
     {
+      wmsLayer: 'edad_2019',
+      style: '',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
+      infoLayer: 'gridpob_250',
+      fields: [
+        {
+          minValue: -1,
+          field: 'edad0015',
+          title: 'Menos de 16 años',
+        },
+        {
+          minValue: -1,
+          field: 'edad1664',
+          title: 'de 16 a 64',
+        },
+        {
+          minValue: -1,
+          field: 'edad65_',
+          title: '65 y más años',
+        },
+        {
+          minValue: -1,
+          field: 'pob_tot',
+          title: 'TOTAL',
+        }
+      ]
+    },{
+      wmsLayer: 'pob_lnac_2019',
+      style: '',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
+      infoLayer: 'gridpob_250',
+      fields: [
+        {
+          minValue: -1,
+          field: 'muni',
+          title: 'Mismo municipio',
+        },
+        {
+          minValue: -1,
+          field: 'mund',
+          title: 'Distinto municipio, misma provincia',
+        },
+        {
+          minValue: -1,
+          field: 'provd',
+          title: 'Distinta provincia dentro de Andalucía',
+        },
+        {
+          minValue: -1,
+          field: 'ccaad',
+          title: 'Resto de España',
+        },
+        {
+          minValue: -1,
+          field: 'paisd',
+          title: 'Extranjero',
+        },
+        {
+          minValue: -1,
+          field: 'pob_tot',
+          title: 'TOTAL',
+        }
+      ]
+    },
+    {
       wmsLayer: 'segsoc_rellab_2019',
       style: '',
       infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil/wms?',
@@ -837,6 +985,71 @@ const configGridInfoPoblacion = [{
           minValue: -1,
           field: 'otr',
           title: 'Otras',
+        },
+        {
+          minValue: -1,
+          field: 'pob_tot',
+          title: 'TOTAL',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'edad_2018',
+      style: '',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
+      infoLayer: 'gridpob18_250',
+      fields: [
+        {
+          minValue: -1,
+          field: 'edad0015',
+          title: 'Menos de 16 años',
+        },
+        {
+          minValue: -1,
+          field: 'edad1664',
+          title: 'de 16 a 64',
+        },
+        {
+          minValue: -1,
+          field: 'edad65_',
+          title: '65 y más años',
+        },
+        {
+          minValue: -1,
+          field: 'pob_tot',
+          title: 'TOTAL',
+        }
+      ]
+    },{
+      wmsLayer: 'pob_lnac_2018',
+      style: '',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
+      infoLayer: 'gridpob18_250',
+      fields: [
+        {
+          minValue: -1,
+          field: 'muni',
+          title: 'Mismo municipio',
+        },
+        {
+          minValue: -1,
+          field: 'mund',
+          title: 'Distinto municipio, misma provincia',
+        },
+        {
+          minValue: -1,
+          field: 'provd',
+          title: 'Distinta provincia dentro de Andalucía',
+        },
+        {
+          minValue: -1,
+          field: 'ccaad',
+          title: 'Resto de España',
+        },
+        {
+          minValue: -1,
+          field: 'paisd',
+          title: 'Extranjero',
         },
         {
           minValue: -1,
@@ -915,6 +1128,71 @@ const configGridInfoPoblacion = [{
       ]
     },
     {
+      wmsLayer: 'edad_2017',
+      style: '',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
+      infoLayer: 'gridpob17_250',
+      fields: [
+        {
+          minValue: -1,
+          field: 'edad0015',
+          title: 'Menos de 16 años',
+        },
+        {
+          minValue: -1,
+          field: 'edad1664',
+          title: 'de 16 a 64',
+        },
+        {
+          minValue: -1,
+          field: 'edad65_',
+          title: '65 y más años',
+        },
+        {
+          minValue: -1,
+          field: 'pob_tot',
+          title: 'TOTAL',
+        }
+      ]
+    },{
+      wmsLayer: 'pob_lnac_2017',
+      style: '',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
+      infoLayer: 'gridpob17_250',
+      fields: [
+        {
+          minValue: -1,
+          field: 'muni',
+          title: 'Mismo municipio',
+        },
+        {
+          minValue: -1,
+          field: 'mund',
+          title: 'Distinto municipio, misma provincia',
+        },
+        {
+          minValue: -1,
+          field: 'provd',
+          title: 'Distinta provincia dentro de Andalucía',
+        },
+        {
+          minValue: -1,
+          field: 'ccaad',
+          title: 'Resto de España',
+        },
+        {
+          minValue: -1,
+          field: 'paisd',
+          title: 'Extranjero',
+        },
+        {
+          minValue: -1,
+          field: 'pob_tot',
+          title: 'TOTAL',
+        }
+      ]
+    },
+    {
       wmsLayer: 'segsoc_rellab_2017',
       style: '',
       infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil2017/wms?',
@@ -942,8 +1220,8 @@ const configGridInfoPoblacion = [{
 ]
 
 
-const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
-//const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
+//const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
+const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configGridPoblacion);
 const baseLayerSelector = new M.plugin.Simplebaselayerselector(configSimpleBaseLayerSelector);
 const simpleLegend = new M.plugin.Simplelegend()
 const mapheader = new M.plugin.Mapheader(configHeaderIECA);
@@ -955,8 +1233,8 @@ map.addPlugin(simpleLegend);
 map.addPlugin(mapfooter);
 map.addPlugin(mapheader);
 
-const mp = new Gridinfo(configGridInfoTipologiasConstructivas);
-//const mp = new Gridinfo(configGridInfoPoblacion);
+//const mp = new Gridinfo(configGridInfoTipologiasConstructivas);
+const mp = new Gridinfo(configGridInfoPoblacion);
 map.addPlugin(mp);
 
 // Control carga Plugins
