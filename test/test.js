@@ -3,7 +3,7 @@ import Gridinfo from 'facade/gridinfo';
 // definición raster layers capas bases
 
 const ortofoto2016_color = new M.layer.WMS({
-  url: 'http://www.ideandalucia.es/wms/ortofoto2016?',
+  url: 'https://www.ideandalucia.es/wms/ortofoto2016?',
   name: 'ortofotografia_2016_rgb',
   legend: 'Ortofotografía Color 0,5 metros/pixel (Año 2016)',
   transparent: false,
@@ -15,7 +15,7 @@ const ortofoto2016_color = new M.layer.WMS({
 ortofoto2016_color.setLegendURL('https://www.ideandalucia.es/visor/leyendas/ortofoto2016_color.png')
 
 const ortofoto2016_pancromatica = new M.layer.WMS({
-  url: 'http://www.ideandalucia.es/wms/ortofoto2016?',
+  url: 'https://www.ideandalucia.es/wms/ortofoto2016?',
   name: 'ortofotografia_2016_pancromatico',
   legend: 'Ortofotografía Pancromática 0,5 metros/pixel (Año 2016)',
   transparent: false,
@@ -27,7 +27,7 @@ const ortofoto2016_pancromatica = new M.layer.WMS({
 ortofoto2016_pancromatica.setLegendURL('https://www.ideandalucia.es/visor/leyendas/ortofoto2016_pancromatico.png');
 
 const ortofoto2016_infrarrojo = new M.layer.WMS({
-  url: 'http://www.ideandalucia.es/wms/ortofoto2016?',
+  url: 'https://www.ideandalucia.es/wms/ortofoto2016?',
   name: 'ortofotografia_2016_infrarrojo',
   legend: 'Ortofotografía Infrarrojo 0,5 metros/pixel (Año 2016)',
   transparent: false,
@@ -85,7 +85,7 @@ const MapaAndalucia = new M.layer.WMS({
 
 
 const viviendas_colectivas = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Viviendas colectivas. Urbano',
   transparent: true,
@@ -94,11 +94,11 @@ const viviendas_colectivas = new M.layer.WMS({
   styles: 'stl_c011_viviendas_colectivas'
 })
 
-viviendas_colectivas.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c011_viviendas_colectivas')
+viviendas_colectivas.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c011_viviendas_colectivas')
 
 
 const viviendas_unifamiliares = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Viviendas unifamiliares. Urbano',
   transparent: true,
@@ -107,10 +107,10 @@ const viviendas_unifamiliares = new M.layer.WMS({
   styles: 'stl_c012_viviendas_unifamiliares'
 })
 
-viviendas_unifamiliares.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c012_viviendas_unifamiliares')
+viviendas_unifamiliares.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c012_viviendas_unifamiliares')
 
 const edificiacion_rural = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Edificación rural',
   transparent: true,
@@ -119,10 +119,10 @@ const edificiacion_rural = new M.layer.WMS({
   styles: 'stl_c013_edificiacion_rural'
 })
 
-edificiacion_rural.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c013_edificiacion_rural')
+edificiacion_rural.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c013_edificiacion_rural')
 
 const garages_viviendas = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Garajes viviendas',
   transparent: true,
@@ -131,10 +131,10 @@ const garages_viviendas = new M.layer.WMS({
   styles: 'stl_c01G_garages_viviendas'
 })
 
-garages_viviendas.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c01G_garages_viviendas')
+garages_viviendas.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c01G_garages_viviendas')
 
 const otros_garajes = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Otros garajes y aparcamientos',
   transparent: true,
@@ -143,10 +143,10 @@ const otros_garajes = new M.layer.WMS({
   styles: 'stl_c022_otros_garajes'
 })
 
-otros_garajes.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c022_otros_garajes')
+otros_garajes.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c022_otros_garajes')
 
 const industrial = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Industrial',
   transparent: true,
@@ -155,10 +155,10 @@ const industrial = new M.layer.WMS({
   styles: 'stl_c02_industrial'
 })
 
-industrial.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c02_industrial')
+industrial.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c02_industrial')
 
 const oficinas = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Oficinas',
   transparent: true,
@@ -167,10 +167,10 @@ const oficinas = new M.layer.WMS({
   styles: 'stl_c03_oficinas'
 })
 
-oficinas.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c03_oficinas')
+oficinas.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c03_oficinas')
 
 const comercio = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Comercio',
   transparent: true,
@@ -179,10 +179,10 @@ const comercio = new M.layer.WMS({
   styles: 'stl_c04_comercio'
 })
 
-comercio.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c04_comercio')
+comercio.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c04_comercio')
 
 const deporte = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Deportes',
   transparent: true,
@@ -191,10 +191,10 @@ const deporte = new M.layer.WMS({
   styles: 'stl_c05_Deportes'
 })
 
-deporte.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c05_Deportes')
+deporte.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c05_Deportes')
 
 const piscinas = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Piscinas',
   transparent: true,
@@ -203,10 +203,10 @@ const piscinas = new M.layer.WMS({
   styles: 'stl_c05P_piscinas'
 })
 
-piscinas.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c05P_piscinas')
+piscinas.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c05P_piscinas')
 
 const espectaculos = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Espectáculos',
   transparent: true,
@@ -215,10 +215,10 @@ const espectaculos = new M.layer.WMS({
   styles: 'stl_c06_espectaculos'
 })
 
-espectaculos.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c06_espectaculos')
+espectaculos.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c06_espectaculos')
 
 const hosteleria_ocio = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Hostelería y Ocio',
   transparent: true,
@@ -227,10 +227,10 @@ const hosteleria_ocio = new M.layer.WMS({
   styles: 'stl_c07_hosteleria_ocio'
 })
 
-hosteleria_ocio.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c07_hosteleria_ocio')
+hosteleria_ocio.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c07_hosteleria_ocio')
 
 const sanitarios_beneficos = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Sanitarios, asistenciales y benéficos',
   transparent: true,
@@ -239,10 +239,10 @@ const sanitarios_beneficos = new M.layer.WMS({
   styles: 'stl_c08_sanitarios_beneficos'
 })
 
-sanitarios_beneficos.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c08_sanitarios_beneficos')
+sanitarios_beneficos.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c08_sanitarios_beneficos')
 
 const culturales = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Culturales',
   transparent: true,
@@ -251,10 +251,10 @@ const culturales = new M.layer.WMS({
   styles: 'stl_c09_culturales'
 })
 
-culturales.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c09_culturales')
+culturales.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c09_culturales')
 
 const religiosos = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Religiosos',
   transparent: true,
@@ -263,10 +263,10 @@ const religiosos = new M.layer.WMS({
   styles: 'stl_c093_religioso'
 })
 
-religiosos.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c093_religioso')
+religiosos.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c093_religioso')
 
 const singulares = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Singulares',
   transparent: true,
@@ -275,10 +275,10 @@ const singulares = new M.layer.WMS({
   styles: 'stl_c10_singulares'
 })
 
-singulares.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c10_singulares')
+singulares.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c10_singulares')
 
 const campo_golf = new M.layer.WMS({
-  url: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
   name: 'gridcattp_250',
   legend: 'Campos de Golf',
   transparent: true,
@@ -287,7 +287,7 @@ const campo_golf = new M.layer.WMS({
   styles: 'stl_c1034_golf'
 })
 
-campo_golf.setLegendURL('http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c1034_golf')
+campo_golf.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=gridcattp_250&FORMAT=image%2Fpng&EXCEPTIONS=image%2Fpng&style=stl_c1034_golf')
 
 
 
@@ -500,15 +500,15 @@ const configHeaderIECA = {
 //config plugin gridinfo
 
 const configGridInfoTipologiasConstructivas = [{
-  wmsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
+  wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
   wfsLayer: 'gridcattp_250',
   zoom: 6,
   info: [
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c011_viviendas_colectivas',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -521,7 +521,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c012_viviendas_unifamiliares',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -534,7 +534,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c013_edificiacion_rural',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -547,7 +547,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c01G_garages_viviendas',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -560,7 +560,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c022_otros_garajes',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -573,7 +573,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c02_industrial',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -586,7 +586,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c03_oficinas',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -599,7 +599,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c04_comercio',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -612,7 +612,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c05_Deportes',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -625,7 +625,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c05P_piscinas',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -638,7 +638,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c06_espectaculos',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -651,7 +651,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c07_hosteleria_ocio',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -664,7 +664,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c08_sanitarios_beneficos',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -677,7 +677,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c09_culturales',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -690,7 +690,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c093_religioso',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -703,7 +703,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c10_singulares',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -716,7 +716,7 @@ const configGridInfoTipologiasConstructivas = [{
     {
       wmsLayer: 'gridcattp_250',
       style: 'stl_c1034_golf',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
       infoLayer: 'gridcattp_250',
       fields: [
         {
@@ -734,14 +734,14 @@ const configGridInfoTipologiasConstructivas = [{
 
 const configGridInfoPoblacion = [{
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
+  wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid/wfs?',
   wfsLayer: 'gridp_250',
   zoom: 6,
   info: [
     {
       wmsLayer: 'nacionalidad_2019',
       style: '',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
       infoLayer: 'gridpob_250',
       fields: [
         {
@@ -779,7 +779,7 @@ const configGridInfoPoblacion = [{
     {
       wmsLayer: 'segsoc_rellab_2019',
       style: '',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil/wms?',
       infoLayer: 'gridafil_250',
       fields: [
         {
@@ -803,14 +803,14 @@ const configGridInfoPoblacion = [{
 },
 {
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2018/wfs?',
+  wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2018/wfs?',
   wfsLayer: 'gridp18_250',
   zoom: 6,
   info: [
     {
       wmsLayer: 'nacionalidad_2018',
       style: '',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
       infoLayer: 'gridpob18_250',
       fields: [
         {
@@ -848,7 +848,7 @@ const configGridInfoPoblacion = [{
     {
       wmsLayer: 'segsoc_rellab_2018',
       style: '',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil2018/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil2018/wms?',
       infoLayer: 'gridafil18_250',
       fields: [
         {
@@ -872,14 +872,14 @@ const configGridInfoPoblacion = [{
 },
 {
   wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
-  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2017/wfs?',
+  wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/grid2017/wfs?',
   wfsLayer: 'gridp17_250',
   zoom: 6,
   info: [
     {
       wmsLayer: 'nacionalidad_2017',
       style: '',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
       infoLayer: 'gridpob17_250',
       fields: [
         {
@@ -917,7 +917,7 @@ const configGridInfoPoblacion = [{
     {
       wmsLayer: 'segsoc_rellab_2017',
       style: '',
-      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil2017/wms?',
+      infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil2017/wms?',
       infoLayer: 'gridafil17_250',
       fields: [
         {
