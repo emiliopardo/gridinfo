@@ -406,205 +406,236 @@
 
     //config plugin gridinfo
 
-    
-    const configGridInfoTipologiasConstructivas = [{
-        wmsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
-        wfsUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
-        infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
-        infoLayer: 'gridcattp_250',
-        wfsLayer: 'gridcattp_250',
-        zoom: 6,
-        info: [
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c011_viviendas_colectivas',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c011',
-                        title: 'Viviendas colectivas. Urbano',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c012_viviendas_unifamiliares',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c012',
-                        title: 'Viviendas unifamiliares. Urbano',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c013_edificiacion_rural',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c013',
-                        title: 'Edificación rural',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c01G_garages_viviendas',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c01g',
-                        title: 'Garajes viviendas',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c022_otros_garajes',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c022',
-                        title: 'Otros garajes y aparcamientos',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c02_industrial',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c02',
-                        title: 'Industrial',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c03_oficinas',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c03',
-                        title: 'Oficinas',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c04_comercio',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c04',
-                        title: 'Comercio',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c05_Deportes',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c05',
-                        title: 'Deportes',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c05P_piscinas',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c05p',
-                        title: 'Piscinas',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c06_espectaculos',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c06',
-                        title: 'Espectáculos',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c07_hosteleria_ocio',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c07',
-                        title: 'Hostelería y Ocio',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c08_sanitarios_beneficos',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c08',
-                        title: 'Sanitarios, asistenciales y benéficos',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c09_culturales',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c09',
-                        title: 'Culturales',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c093_religioso',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c093',
-                        title: 'Religiosos',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c10_singulares',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c10',
-                        title: 'Singulares',
-                    }
-                ]
-            },
-            {
-                wmsLayer: 'gridcattp_250',
-                style: 'stl_c1034_golf',
-                fields: [
-                    {
-                        minValue: 1,
-                        field: 'c1034',
-                        title: 'Campos de Golf',
-                    }
-                ]
-            }
-        ]
-    }]
-
+   const configGridInfoTipologiasConstructivas = [{
+  wmsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+  wfsUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wfs?',
+  wfsLayer: 'gridcattp_250',
+  zoom: 6,
+  info: [
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c011_viviendas_colectivas',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c011',
+          title: 'Viviendas colectivas. Urbano',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c012_viviendas_unifamiliares',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c012',
+          title: 'Viviendas unifamiliares. Urbano',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c013_edificiacion_rural',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c013',
+          title: 'Edificación rural',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c01G_garages_viviendas',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c01g',
+          title: 'Garajes viviendas',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c022_otros_garajes',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c022',
+          title: 'Otros garajes y aparcamientos',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c02_industrial',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c02',
+          title: 'Industrial',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c03_oficinas',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c03',
+          title: 'Oficinas',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c04_comercio',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c04',
+          title: 'Comercio',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c05_Deportes',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c05',
+          title: 'Deportes',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c05P_piscinas',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c05p',
+          title: 'Piscinas',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c06_espectaculos',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c06',
+          title: 'Espectáculos',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c07_hosteleria_ocio',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c07',
+          title: 'Hostelería y Ocio',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c08_sanitarios_beneficos',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c08',
+          title: 'Sanitarios, asistenciales y benéficos',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c09_culturales',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c09',
+          title: 'Culturales',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c093_religioso',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c093',
+          title: 'Religiosos',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c10_singulares',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c10',
+          title: 'Singulares',
+        }
+      ]
+    },
+    {
+      wmsLayer: 'gridcattp_250',
+      style: 'stl_c1034_golf',
+      infoUrl: 'http://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridcattp/wms?',
+      infoLayer: 'gridcattp_250',
+      fields: [
+        {
+          minValue: 1,
+          field: 'c1034',
+          title: 'Campos de Golf',
+        }
+      ]
+    }
+  ]
+}] 
+   
 
     const baseLayerSelector = new M.plugin.Simplebaselayerselector(configSimpleBaseLayerSelector);
     const inputSelectAddLayer = new M.plugin.Inputselectaddlayer(configTipologiasConstructivas);
