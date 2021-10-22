@@ -120,7 +120,88 @@
         })
 
         //definicion layers
-        //NACIONALIDAD
+
+        //POBLACION POR GRUPOS DE EDAD
+
+        const edad_2019 = new M.layer.WMS({
+            url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+            name: 'edad_2019',
+            legend: 'Población por grupos de edad',
+            transparent: true,
+            tiled: true
+        }, {
+            styles: ''
+        })
+
+        edad_2019.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/edad.png')
+
+        const edad_2018 = new M.layer.WMS({
+            url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+            name: 'edad_2018',
+            legend: 'Población por grupos de edad',
+            transparent: true,
+            tiled: true
+        }, {
+            styles: ''
+        })
+
+        edad_2018.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/edad.png')
+
+
+        const edad_2017 = new M.layer.WMS({
+            url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+            name: 'edad_2017',
+            legend: 'Población por grupos de edad',
+            transparent: true,
+            tiled: true
+        }, {
+            styles: ''
+        })
+
+        edad_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/edad.png')
+
+        // POBLACION POR LUGAR DE NACIMIENTO
+
+        const pob_lnac_2019 = new M.layer.WMS({
+            url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+            name: 'pob_lnac_2019',
+            legend: 'Población por lugar de nacimiento',
+            transparent: true,
+            tiled: true
+        }, {
+            styles: ''
+        })
+
+        pob_lnac_2019.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/pob_lnac.png')
+
+
+        const pob_lnac_2018 = new M.layer.WMS({
+            url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+            name: 'pob_lnac_2018',
+            legend: 'Población por lugar de nacimiento',
+            transparent: true,
+            tiled: true
+        }, {
+            styles: ''
+        })
+
+        pob_lnac_2018.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/pob_lnac.png')
+
+
+        const pob_lnac_2017 = new M.layer.WMS({
+            url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
+            name: 'pob_lnac_2017',
+            legend: 'Población por lugar de nacimiento',
+            transparent: true,
+            tiled: true
+        }, {
+            styles: ''
+        })
+
+        pob_lnac_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/pob_lnac.png')
+
+
+        //POBLACION POR GRUPOS DE NACIONALIDAD
 
         const nacionalidad_2019 = new M.layer.WMS({
             url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
@@ -158,7 +239,7 @@
 
         nacionalidad_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/nacionalidad.png')
 
-        // Seguridad social   
+        // AFILIACION A LA SEGURIDAD SOCIAL
         const segsoc_rellab_2019 = new M.layer.WMS({
             url: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/visorGrid/wms?',
             name: 'segsoc_rellab_2019',
@@ -194,6 +275,8 @@
         })
 
         segsoc_rellab_2017.setLegendURL('https://www.juntadeandalucia.es/institutodeestadisticaycartografia/VisorGrid/leyenda/segsoc_rellab.png')
+
+
         // definición Mapea
         const map = M.map({
             container: 'map',
@@ -218,19 +301,20 @@
             group: true,
             data: [
                 {
-                    name: 'Año 2017',
+                    name: 'Año 2019',
                     layerGroups: [
                         {
                             group: 'Población',
                             layers: [
-                                nacionalidad_2017
+                                edad_2019,
+                                pob_lnac_2019,
+                                nacionalidad_2019
                             ]
-                        }
-                        ,
+                        },
                         {
                             group: 'Afiliación a la Seguridad Social',
                             layers: [
-                                segsoc_rellab_2017
+                                segsoc_rellab_2019
                             ]
                         }
                     ]
@@ -241,6 +325,8 @@
                         {
                             group: 'Población',
                             layers: [
+                                edad_2018,
+                                pob_lnac_2018,
                                 nacionalidad_2018
                             ]
                         },
@@ -251,20 +337,22 @@
                             ]
                         }
                     ]
-                },
-                {
-                    name: 'Año 2019',
+                }, {
+                    name: 'Año 2017',
                     layerGroups: [
                         {
                             group: 'Población',
                             layers: [
-                                nacionalidad_2019
+                                edad_2017,
+                                pob_lnac_2017,
+                                nacionalidad_2017
                             ]
-                        },
+                        }
+                        ,
                         {
                             group: 'Afiliación a la Seguridad Social',
                             layers: [
-                                segsoc_rellab_2019
+                                segsoc_rellab_2017
                             ]
                         }
                     ]
@@ -289,7 +377,7 @@
         }
 
         const configHeaderIECA = {
-            open: true,            
+            open: true,
             htmlCode: '<div id="cabecera"> <div id="cabecera_1"> <div id="logos"> <a href="https://www.juntadeandalucia.es"><img alt="Junta de Andalucía" title="Junta de Andalucía" src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/cabecera/LogoJuntaA.png"></a> <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/" accesskey="h"><img alt="Web del Instituto de Estadística y Cartografía de Andalucía" title="Web del Instituto de Estadística y Cartografía de Andalucía" src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/cabecera/LogoIECAA.png"></a> </div></div><div id="cabecera_2"> <div id="cabecera_2a"> <div id="redessociales"> <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/blog/"><img alt="Síguenos en nuestro blog" title="Síguenos en nuestro blog" src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_blogger.png"></a> <a href="https://www.twitter.com/IECA_Andalucia"><img alt="Síguenos en Twitter" title="Síguenos en Twitter" src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_twitter.png"></a> <a href="https://www.facebook.com/institutodeestadisticadeandalucia"><img alt="Síguenos en Facebook" title="Síguenos en Facebook" src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/social/ico_facebook.png"></a> </div></div><div id="cabecera_2b"> <div id="cabecera_2b_menu" class="lateral10 bordecolor2"> <ul> <li><a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/contacto.html" accesskey="c">Contacto</a></li><li><a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/suscripcion/index.htm" accesskey="s">Suscripción</a></li><li><a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/ieagen/calendario/index.htm" accesskey="d">Calendario</a></li><li>&nbsp;</li></ul> </div></div></div></div><div id="navigation"> <div class="lineacolor fondocolor1">&nbsp;</div><div id="menu_horizontal"> <div id="menu_horizontal_1"> <div id="caminomigas"> <img src="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/images/icons/acciones/ico_aqui.png" alt="Ruta">Está en: <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/">Inicio</a> - <a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/temas/index-geo.htm">Georreferenciación</a> - <a href="../index.htm">Página del producto</a> </div></div><div id="menu_horizontal_2"> <div id="botoneramenu"> </div></div></div></div></div>',
             cssList: [
                 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/portal/css/estiloCabecera2015.css',
@@ -336,6 +424,71 @@
                             minValue: -1,
                             field: 'otr',
                             title: 'Otras',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'pob_tot',
+                            title: 'TOTAL',
+                        }
+                    ]
+                },
+                {
+                    wmsLayer: 'edad_2019',
+                    style: '',
+                    infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
+                    infoLayer: 'gridpob_250',
+                    fields: [
+                        {
+                            minValue: -1,
+                            field: 'edad0015',
+                            title: 'Menos de 16 años',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'edad1664',
+                            title: 'de 16 a 64',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'edad65_',
+                            title: '65 y más años',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'pob_tot',
+                            title: 'TOTAL',
+                        }
+                    ]
+                }, {
+                    wmsLayer: 'pob_lnac_2019',
+                    style: '',
+                    infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob/wms?',
+                    infoLayer: 'gridpob_250',
+                    fields: [
+                        {
+                            minValue: -1,
+                            field: 'muni',
+                            title: 'Mismo municipio',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'mund',
+                            title: 'Distinto municipio, misma provincia',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'provd',
+                            title: 'Distinta provincia dentro de Andalucía',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'ccaad',
+                            title: 'Resto de España',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'paisd',
+                            title: 'Extranjero',
                         },
                         {
                             minValue: -1,
@@ -414,6 +567,71 @@
                     ]
                 },
                 {
+                    wmsLayer: 'edad_2018',
+                    style: '',
+                    infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
+                    infoLayer: 'gridpob18_250',
+                    fields: [
+                        {
+                            minValue: -1,
+                            field: 'edad0015',
+                            title: 'Menos de 16 años',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'edad1664',
+                            title: 'de 16 a 64',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'edad65_',
+                            title: '65 y más años',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'pob_tot',
+                            title: 'TOTAL',
+                        }
+                    ]
+                }, {
+                    wmsLayer: 'pob_lnac_2018',
+                    style: '',
+                    infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2018/wms?',
+                    infoLayer: 'gridpob18_250',
+                    fields: [
+                        {
+                            minValue: -1,
+                            field: 'muni',
+                            title: 'Mismo municipio',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'mund',
+                            title: 'Distinto municipio, misma provincia',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'provd',
+                            title: 'Distinta provincia dentro de Andalucía',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'ccaad',
+                            title: 'Resto de España',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'paisd',
+                            title: 'Extranjero',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'pob_tot',
+                            title: 'TOTAL',
+                        }
+                    ]
+                },
+                {
                     wmsLayer: 'segsoc_rellab_2018',
                     style: '',
                     infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridafil2018/wms?',
@@ -474,6 +692,71 @@
                             minValue: -1,
                             field: 'otr',
                             title: 'Otras',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'pob_tot',
+                            title: 'TOTAL',
+                        }
+                    ]
+                },
+                {
+                    wmsLayer: 'edad_2017',
+                    style: '',
+                    infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
+                    infoLayer: 'gridpob17_250',
+                    fields: [
+                        {
+                            minValue: -1,
+                            field: 'edad0015',
+                            title: 'Menos de 16 años',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'edad1664',
+                            title: 'de 16 a 64',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'edad65_',
+                            title: '65 y más años',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'pob_tot',
+                            title: 'TOTAL',
+                        }
+                    ]
+                }, {
+                    wmsLayer: 'pob_lnac_2017',
+                    style: '',
+                    infoUrl: 'https://www.juntadeandalucia.es/institutodeestadisticaycartografia/geoserver-ieca/gridpob2017/wms?',
+                    infoLayer: 'gridpob17_250',
+                    fields: [
+                        {
+                            minValue: -1,
+                            field: 'muni',
+                            title: 'Mismo municipio',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'mund',
+                            title: 'Distinto municipio, misma provincia',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'provd',
+                            title: 'Distinta provincia dentro de Andalucía',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'ccaad',
+                            title: 'Resto de España',
+                        },
+                        {
+                            minValue: -1,
+                            field: 'paisd',
+                            title: 'Extranjero',
                         },
                         {
                             minValue: -1,
